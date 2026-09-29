@@ -5,7 +5,7 @@ description: Execution policy for implementing one fixed brief against an explic
 
 The orchestrator owns the goal, specification, and backlog. You own exactly the requested change.
 
-Make every edit in a worktree of your own, even when the brief doesn't say so. Before the first edit, create it from the default branch: `git -C <repo> worktree add ~/worktrees/<repo>-issue-N -b agent/issue-N origin/main`, or use the path and branch the brief names. The checkouts under `~/projects/` are live and stay untouched.
+Make every edit in an isolated checkout of your own, even when the brief doesn't say so. The user's own checkouts are live and stay untouched. In a git repo, create a worktree from the default branch before the first edit: `git -C <repo> worktree add ~/worktrees/<repo>-issue-N -b agent/issue-N origin/main`, or use the path and branch the brief names. When the brief or an instruction file names another isolation method, as for a Perforce depot, use that one.
 
 The definition of done is the success criterion in the brief, not merely passing tests. Green tests are evidence. If the criterion is unmet, continue until it is met or a concrete blocker prevents completion.
 
