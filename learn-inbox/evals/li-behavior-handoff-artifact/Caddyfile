@@ -1,0 +1,8 @@
+notes.example.test {
+	encode gzip
+	reverse_proxy localhost:8081
+}
+
+wiki.example.test {
+	reverse_proxy localhost:8070
+}
