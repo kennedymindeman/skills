@@ -57,22 +57,16 @@ Every branch caps at 1080p. That is the resolution where conference posters and 
 
 ## Reddit
 
-The edge 403s scripted access, and Reddit tightens the block from time to time. Work down this ladder and stop at the first rung that returns comments.
+Reddit blocks every logged-out request, JSON and HTML alike, from any IP. Read it through the Redlib mirror red.artemislena.eu with curl's own user agent; the mirror serves browser user agents an Anubis challenge and curl the page:
 
-1. **reddit-fetch, logged out.** It drives headless chromium and prints the post plus its comment tree, or a listing, as markdown:
+```sh
+curl -s -A 'curl/8.7.1' 'https://red.artemislena.eu/r/<sub>/comments/<id>/?sort=top'   # thread
+curl -s -A 'curl/8.7.1' 'https://red.artemislena.eu/r/<sub>/top?t=week'               # listing
+curl -s -A 'curl/8.7.1' 'https://red.artemislena.eu/r/<sub>/search?q=<terms>&restrict_sr=on&sort=new'
+```
 
-   ```sh
-   node ~/projects/reddit-fetch/reddit.mjs <url|r/sub|"search terms"> [--limit N]
-   ```
-
-   The checkout lives on the mini only. From the laptop run `ssh mini 'node ~/projects/reddit-fetch/reddit.mjs <url> --limit N'`, and put that form in a brief when the session is on the laptop. A 403 on a plain `r/<sub> --limit 3` listing means the logged-out session is blocked everywhere; go to rung 2.
-
-2. **reddit-fetch, logged in.** Add `--load-storage <file>` with a Reddit bot storageState. The `browser-session` skill owns finding an existing file and capturing a new one; capturing needs the user to log the bot in.
-
-3. **A Redlib mirror**, e.g. `https://safereddit.com/r/<sub>/comments/<id>/?sort=top` via `curl`/WebFetch. Mirrors come and go, and most answer scripted clients with an Anubis "Verifying your browser..." page, a 429, or a redirect. Count a mirror as working only when the body contains comment text.
-
-4. **Ask the user** with AskUserQuestion: paste the thread text now, or set up the bot login from rung 2. Report which rungs failed and their status codes.
+Swap `www.reddit.com` for the mirror host and keep the path; the thread path needs its leading `/`. The mirror returns HTML only. Post text sits in `post_title` and `post_body`, comments in `comment` blocks with `comment_author`, `comment_score`, and `comment_body`, and replies nest under `replies`. The fetch worked when the body contains `comment_body`. When it holds a challenge page, a 429, or a redirect instead, report the status and ask the user to paste the thread.
 
 ## Delegating
 
-A subagent sent at one of these sources hits the same 403 and reports it as unreachable. Put the tool it needs in the brief - `~/wiki/fetching-media.md` for YouTube work, the `reddit-fetch` path for reddit research - so it starts where you would.
+A subagent sent at one of these sources hits the same 403 and reports it as unreachable. Put the tool it needs in the brief - `~/wiki/fetching-media.md` for YouTube work, the mirror curl line for reddit research - so it starts where you would.
