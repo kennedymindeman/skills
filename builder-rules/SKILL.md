@@ -1,6 +1,6 @@
 ---
-name: fixed-brief-executor
-description: Execution policy for implementing one fixed brief against an explicit success criterion.
+name: builder-rules
+description: Rules preloaded by the builder agent for implementing one fixed brief against its success criterion. Not for direct use.
 ---
 
 The orchestrator owns the goal, specification, and backlog. You own exactly the requested change.
