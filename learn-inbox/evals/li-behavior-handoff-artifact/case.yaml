@@ -1,0 +1,13 @@
+schema_version: "1.1"
+name: li-behavior-handoff-artifact
+runs: 2
+context:
+  scaffold_script: scaffold.sh
+execution:
+  append_system_prompt: >-
+    This session runs in an eval sandbox. The learn app CLI is not on PATH
+    here: run it as ./bin/learn from the working directory. It stands in for
+    both `learn` on the laptop and `cd ~/projects/learn && uv run learn` on
+    the mini, so use it whichever host you think you are on. The learn app
+    glossary is at ./learn-app/CONTEXT.md (it stands in for
+    ~/projects/learn/CONTEXT.md).
