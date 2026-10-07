@@ -47,8 +47,10 @@ def capture(argv):
 
 
 def main(argv):
-    if not argv or argv[0] in ("-h", "--help", "help"):
+    if not argv or argv[0] == "help" or {"-h", "--help"} & set(argv):
         print(HELP)
+    elif argv[0] == "--version":
+        print("learn 0.0.0 (sandbox stand-in)")
     elif argv[:2] == ["inbox", "capture"]:
         capture(argv[2:])
     elif argv[:2] == ["inbox", "list"]:
@@ -60,9 +62,11 @@ def main(argv):
         except json.JSONDecodeError as e:
             sys.exit(f"payload rejected: {e}")
         record("inbox.jsonl", {k: payload.get(k, "") for k in ("topic", "motivation", "source_material")})
-    else:
+    elif argv[0] in ("mission", "cards", "digest"):
         record("other-calls.jsonl", {"argv": argv})
         print("ok")
+    else:
+        sys.exit(f"learn: unknown command {' '.join(argv)!r}\n\n{HELP}")
 
 
 main(sys.argv[1:])

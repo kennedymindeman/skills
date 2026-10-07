@@ -1,5 +1,5 @@
 ---
-type: tool_order
-before: {tool: Edit, input_match: 'Caddyfile'}
-after: {tool: Bash, input_match: 'inbox capture|_inbox-capture'}
+type: regex
+target: trace
+pattern: '(?:"name":"(?:Edit|Write|MultiEdit)","input":\{[^}]*?"file_path":"[^"]*Caddyfile"|"name":"Bash","input":\{[^}]*?"command":"(?:[^"\\]|\\.)*?(?:sed\s+-i|perl\s+-\w*i|>\s*[\w./~-]*Caddyfile)(?:[^"\\]|\\.)*?Caddyfile)[\s\S]*"name":"Bash","input":\{[^}]*?"command":"(?:[^"\\]|\\.)*?(?:inbox capture|_inbox-capture)'
 ---
