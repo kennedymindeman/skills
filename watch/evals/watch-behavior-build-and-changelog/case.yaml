@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: watch-behavior-build-and-changelog
+context:
+  scaffold_script: scaffold.sh
