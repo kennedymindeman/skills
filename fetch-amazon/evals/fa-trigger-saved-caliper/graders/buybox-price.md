@@ -1,4 +1,4 @@
 ---
 type: regex
-pattern: "\\$64\\.27"
+pattern: "[Pp]rice[^$\\n]{0,40}\\$64\\.27"
 ---
