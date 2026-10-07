@@ -1,0 +1,8 @@
+schema_version: "1.1"
+name: fa-behavior-live-successor
+description: >-
+  Live, read-only. B07FZ8S74R (Echo Dot 3rd gen) is currently unavailable; the skill says to report
+  that and link a successor ASIN. Grades only stable properties, never a price.
+  If with-arm runs start failing, open a baseline trace (--keep-temp) and read the page it fetched:
+  no "Currently unavailable" text there means Amazon relisted B07FZ8S74R and the case needs a new
+  ASIN; the text still present means the skill regressed.
