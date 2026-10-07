@@ -4,7 +4,7 @@ set -e
 case "$HOME" in /tmp/?*|/private/tmp/?*|"${TMPDIR:-/nonexistent}"/?*) ;; *) echo "refusing: HOME=$HOME is not an eval sandbox" >&2; exit 1 ;; esac
 case "$PWD" in "$HOME"/?*) ;; *) echo "refusing: $PWD is not under $HOME" >&2; exit 1 ;; esac
 if [ -e "$HOME/inbox" ] || [ -L "$HOME/inbox" ]; then echo "refusing: $HOME/inbox already exists" >&2; exit 1; fi
-mkdir inbox
+mkdir -p inbox/archive inbox/someday
 printf '# inbox\n\nThought dumps land here, unsorted.\n' > inbox/README.md
 cat > inbox/2026-09-10-0732-few-things.md <<'DUMP'
 ---
