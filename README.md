@@ -41,8 +41,7 @@ npx skills add mattpocock/skills -g -a github-copilot -s research -y
 - **watch** — arm a background watch (Bash until-loop or Monitor) instead of polling for an external condition.
 - **browser-session** — Playwright automation under per-site storageState bot logins.
 - **possessions** — review problems with owned expensive things via their wiki pages and open questions.
-- **learn-inbox** — capture a topic, or hand off work an agent just did, to the learn app's inbox without enrolling in anything.
-- **learn-digest** — file what a conversation taught into the learn app's inbox: one item per concept, in dependency order, with the passages that explain each.
+- **learn-inbox** — capture a topic, hand off work an agent just did, or digest a whole conversation (one item per concept) into the learn app's inbox without enrolling in anything.
 - **fetch-amazon** — read Amazon product pages and search results (browser-UA fetch + parser); canonical `/dp/ASIN` links, buybox price, specs.
 - **education-ui** — design/restyle UI for learning or reading-heavy tools: calm, legible, professional, non-persuasive; every rule tied to a cited finding (review and vetting in [learn/docs/research](https://github.com/kennedymindeman/learn/tree/main/docs/research)).
 - **blind-redesign** — fresh designs for a screen from builders who never see the current UI, compared with the current design under shuffled letters.

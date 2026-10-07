@@ -1,6 +1,6 @@
 ---
 name: learn-inbox
-description: Captures a topic, or the work an agent just finished, to the learn app's learning inbox without enrolling in anything. Use on "add that to my learning inbox", "I should learn X", "I want to learn to do this myself", "next time I'll do it", "teach me this later", "capture this for learn", `learn inbox capture`, the retired ~/learning/queue; when a topic surfaces mid-conversation and how to learn it is undecided; and after finishing a task the user flagged as one to learn, or one they keep delegating (git surgery, launchd, Caddy, DNS, uv packaging). Fires once the work is done, never in the middle of it.
+description: Captures a topic, or the work an agent just finished, to the learn app's learning inbox without enrolling in anything. Use on "add that to my learning inbox", "I should learn X", "I want to learn to do this myself", "next time I'll do it", "teach me this later", "capture this for learn", `learn inbox capture`, the retired ~/learning/queue; when a topic surfaces mid-conversation and how to learn it is undecided; and after finishing a task the user flagged as one to learn, or one they keep delegating (git surgery, launchd, Caddy, DNS, uv packaging), firing once the work is done, never in the middle of it; and on "digest this chat into learn", one item per concept the conversation taught.
 ---
 
 Wanting to learn something and choosing how to learn it are two decisions, and the second one is expensive: a mission is a teaching engagement, an SRS card is a lifetime of reviews. The learning inbox exists so the first decision can be recorded on its own - one intent, filed, committing the user to nothing. So capture is a single call that writes a row and returns to the task, and every question about what to do with the topic is left for the review page, later.
@@ -22,6 +22,8 @@ cd ~/projects/learn && echo '{"topic": "...", "motivation": "...", "source_mater
 Both write the same row; only the first form prints a confirmation. In the JSON form, line breaks inside a field go in as `\n` escapes (written `\\n` inside the single-quoted `echo`) - a raw newline in a JSON string is a parse error, and the payload is rejected whole. `--why` and `--source` are optional, but an item with neither is a topic with no reason and nothing to start from - fill them from the conversation that produced the topic: why it came up, and the link, file, or transcript it came from. That material is already in hand, so filling them costs nothing. Asking for them does not: an interview about a topic the user mentioned in passing is the conversation capture is meant to defer.
 
 Then one line back naming what was filed, and on with what the session was doing.
+
+To digest a whole conversation into learn, one item per concept, read digest.md.
 
 ## Hand off work the user wants to do themselves
 
