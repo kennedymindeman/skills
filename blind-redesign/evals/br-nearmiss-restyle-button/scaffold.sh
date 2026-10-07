@@ -1,6 +1,11 @@
 #!/bin/sh
 # Tiny synthetic account-settings app: one static screen plus a JSON API.
 set -e
+# Refuse to run inside an existing checkout or over existing files.
+if git rev-parse --is-inside-work-tree >/dev/null 2>&1 || [ -e ISSUE.md ] || [ -e server.py ] || [ -e static ] || [ -e data ]; then
+  echo "scaffold.sh: run in an empty directory outside any git repo" >&2
+  exit 1
+fi
 mkdir -p static data
 cat > ISSUE.md <<'EOT'
 # Settings screen: needs a rethink

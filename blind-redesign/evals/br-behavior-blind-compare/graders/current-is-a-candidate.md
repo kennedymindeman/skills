@@ -1,7 +1,7 @@
 ---
 type: regex
 target: {source: file, path: compare/index.html}
-match: count:6
-pattern: '<img\b'
+match: contains
+pattern: '>\s*(?:(?:Option|Candidate|Design)\s+)?(?:C|3)\s*<'
 weight: 2
 ---
