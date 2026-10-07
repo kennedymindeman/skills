@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: fa-trigger-saved-caliper
+description: Offline trigger. caliper.html is a trimmed synthetic Amazon product page (made-up ASINs, seller and prices) with decoy prices and a third-party seller on a counterfeit-prone brand.
+context:
+  scaffold_script: scaffold.sh
+runs: 2
