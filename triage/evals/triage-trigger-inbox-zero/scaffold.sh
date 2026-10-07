@@ -1,7 +1,9 @@
 #!/bin/sh
 set -e
-# The eval sandbox gives each run its own HOME; refuse to touch a real inbox.
-[ ! -e "$HOME/inbox" ] || { echo "refusing: $HOME/inbox already exists" >&2; exit 1; }
+# The eval sandbox runs this with a throwaway HOME under a temp dir and the case cwd inside it; refuse anywhere else.
+case "$HOME" in /tmp/?*|/private/tmp/?*|"${TMPDIR:-/nonexistent}"/?*) ;; *) echo "refusing: HOME=$HOME is not an eval sandbox" >&2; exit 1 ;; esac
+case "$PWD" in "$HOME"/?*) ;; *) echo "refusing: $PWD is not under $HOME" >&2; exit 1 ;; esac
+if [ -e "$HOME/inbox" ] || [ -L "$HOME/inbox" ]; then echo "refusing: $HOME/inbox already exists" >&2; exit 1; fi
 mkdir inbox
 printf '# inbox\n\nThought dumps land here, unsorted.\n' > inbox/README.md
 cat > inbox/2026-09-14-2105-zfs-scrub.md <<'DUMP'
