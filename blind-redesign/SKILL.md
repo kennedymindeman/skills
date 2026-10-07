@@ -1,6 +1,6 @@
 ---
 name: blind-redesign
-description: Builds fresh designs for an app screen by builders who never see the current UI, then shows them beside the current design under shuffled letters. Use when asked to redesign a screen or app, for a fresh take on the UI, or to compare designs.
+description: Blind redesign: builders who never see the current screen each design it fresh, then the user picks among them and the current design under shuffled letters. Use when asked for redesign options to choose from, a fresh take on a screen, or a blind design comparison.
 ---
 
 A redesign built on top of the current UI inherits its layout, and a comparison where the user knows which one is their current screen is not a fair one. So both halves are **blind**: builders design from what the screen is for, never from what it looks like now, and the user picks from letters before they learn which letter is the current design.
