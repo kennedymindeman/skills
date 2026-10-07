@@ -56,3 +56,6 @@ npx skills add mattpocock/skills -g -a github-copilot -s research -y
   ([learn#117](https://github.com/kennedymindeman/learn/issues/117)); the
   renderer lives on in the
   [learn](https://github.com/kennedymindeman/learn) repo.
+- **technical-writing** — docs style guide imported from Cursor's pstack
+  plugin. Never invoked; `unslop` and the global plain-language and PR-writing
+  rules already cover its sentence rules.
