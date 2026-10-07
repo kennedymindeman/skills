@@ -85,7 +85,7 @@ Success criterion: <the goal-delta, checkable by someone who reads only the diff
 Report back: `status: done|blocked|partial` / what changed / `validation:` command + output / PR link / `questions:` / found-not-acted-on / ambiguous-and-how-I-resolved-it.
 ```
 
-For UI or prototype tickets, restate the standing interaction rules in the brief - write deliverables to disk, use AskUserQuestion for choices. Subagents inherit none of them. The brief also names one user flow - "log water, see the total update" - and the success criterion is that flow driven end to end in the running app, evidenced in `.pr-assets/issue-<N>/flow.md` as `fixed-brief-executor` describes and linked from the PR body. A screenshot shows a render, not a working flow. Before landing, the orchestrator removes `.pr-assets/` with one commit on the queue tip so it never reaches main.
+For UI or prototype tickets, restate the standing interaction rules in the brief - write deliverables to disk, use AskUserQuestion for choices. Subagents inherit none of them. The brief also names one user flow - "log water, see the total update" - and the success criterion is that flow driven end to end in the running app, evidenced in `.pr-assets/issue-<N>/flow.md` as `builder-rules` describes and linked from the PR body. A screenshot shows a render, not a working flow. Before landing, the orchestrator removes `.pr-assets/` with one commit on the queue tip so it never reaches main.
 
 ## Dispatch by role
 

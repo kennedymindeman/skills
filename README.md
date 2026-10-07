@@ -9,8 +9,8 @@ Some skills assume a personal setup (`~/inbox`, `~/wiki`, the learn app, a lapto
 Install the background-agent policies that the `builder` and `researcher` agents in [dotfiles-shared](https://github.com/kennedymindeman/dotfiles-shared) preload:
 
 ```sh
-npx skills add kennedymindeman/skills -g -a claude-code -s evidence-researcher fixed-brief-executor -y
-npx skills add kennedymindeman/skills -g -a github-copilot -s evidence-researcher fixed-brief-executor -y
+npx skills add kennedymindeman/skills -g -a claude-code -s researcher-rules builder-rules -y
+npx skills add kennedymindeman/skills -g -a github-copilot -s researcher-rules builder-rules -y
 ```
 
 Claude Code gets Matt Pocock's skills through the official `mattpocock-skills` plugin. Install the skills needed by Copilot directly from upstream:
@@ -21,9 +21,9 @@ npx skills add mattpocock/skills -g -a github-copilot -s research -y
 
 ## Skills
 
-- **evidence-researcher** — keep background research and review read-only,
+- **researcher-rules** — keep background research and review read-only,
   neutral, source-grounded, and explicit about uncertainty.
-- **fixed-brief-executor** — implement one fixed brief against its explicit
+- **builder-rules** — implement one fixed brief against its explicit
   success criterion without widening scope or growing the backlog.
 - **dump** — capture a thought verbatim to `~/inbox/` without asking anything or
   leaving the current task; **triage** empties the inbox later.
