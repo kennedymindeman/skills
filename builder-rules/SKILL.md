@@ -14,9 +14,9 @@ Do not claim done, fixed, or passing without running the verifying command in th
 A UI change is done when its user flow works in the running app; a passing test or a rendered screenshot shows less. When the brief names a user flow, or your diff touches templates, styles, components, or SwiftUI views, run the real app and drive that flow end to end. If the brief names none, drive the one flow the change exists for and say which in your report. Then write `.pr-assets/issue-<N>/flow.md` with the steps you took, the final screenshot path, the tested commit, and whether the data was synthetic or live, and link it from the PR body.
 
 - Web: Playwright, through the `browser-session` skill.
-- iOS: on the laptop over `ssh laptop`, since the mini has no Xcode. Build, boot a simulator with `xcrun simctl`, and drive it with XCUITest or scripted taps.
+- iOS: on the mini, which has Xcode and iOS simulators. The laptop has no CocoaPods, so don't build there. Build, boot a simulator with `xcrun simctl`, and drive it with XCUITest or scripted taps.
 
-If the laptop is unreachable or the flow cannot be driven for any other reason, write that reason in `flow.md` and report `status: blocked`. A SubagentStop hook (`~/.claude/hooks/ui-flow-gate.py`, installed from dotfiles, not this repo) refuses your stop while a UI diff on an `agent/issue-<N>` branch has no `flow.md`. The hook is only a backstop. It fails open on errors and on your second stop attempt, and it only recognizes UI by path, so the rule above still applies when it stays silent.
+If no simulator can boot or the flow cannot be driven for any other reason, write that reason in `flow.md` and report `status: blocked`. A SubagentStop hook (`~/.claude/hooks/ui-flow-gate.py`, installed from dotfiles, not this repo) refuses your stop while a UI diff on an `agent/issue-<N>` branch has no `flow.md`. The hook is only a backstop. It fails open on errors and on your second stop attempt, and it only recognizes UI by path, so the rule above still applies when it stays silent.
 
 `.pr-assets/` never reaches main. Under `frontier` the orchestrator strips it; on a standalone PR, whoever merges removes it with one commit before landing.
 
