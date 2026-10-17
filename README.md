@@ -2,7 +2,7 @@
 
 Agent skills for Claude Code and GitHub Copilot: owned behavior and modified forks of third-party skills. Install third-party skills from their upstream repository instead of vendoring them here; fork one into this repo only when it needs local modifications.
 
-Some skills assume a personal setup (`~/inbox`, `~/wiki`, the learn app, a laptop/mini ssh pair). The background-agent policies below work anywhere.
+Some skills assume a personal setup (`~/inbox`, `~/wiki`, a laptop/mini ssh pair). The background-agent policies below work anywhere.
 
 ## Installation
 
@@ -41,7 +41,6 @@ npx skills add mattpocock/skills -g -a github-copilot -s research -y
 - **watch** — arm a background watch (Bash until-loop or Monitor) instead of polling for an external condition.
 - **browser-session** — Playwright automation under per-site storageState bot logins.
 - **possessions** — review problems with owned expensive things via their wiki pages and open questions.
-- **learn-inbox** — capture a topic, hand off work an agent just did, or digest a whole conversation (one item per concept) into the learn app's inbox without enrolling in anything.
 - **fetch-amazon** — read Amazon product pages and search results (browser-UA fetch + parser); canonical `/dp/ASIN` links, buybox price, specs.
 - **education-ui** — design/restyle UI for learning or reading-heavy tools: calm, legible, professional, non-persuasive; every rule tied to a cited finding (review and vetting in [learn/docs/research](https://github.com/kennedymindeman/learn/tree/main/docs/research)).
 - **blind-redesign** — fresh designs for a screen from builders who never see the current UI, compared with the current design under shuffled letters.

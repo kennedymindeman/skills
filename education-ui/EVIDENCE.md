@@ -1,6 +1,6 @@
 # Evidence behind education-ui
 
-Each principle in `SKILL.md` maps to a finding below. Full review with DOIs, provenance grades, and the folklore list: `~/projects/learn/docs/research/ui-design-evidence/README.md`. The line-by-line vetting of Anthropic's `frontend-design` skill that produced this variant: `~/projects/learn/docs/research/design-skills/vetting-frontend-design.md`.
+Each principle in `SKILL.md` maps to a finding below. Full review with DOIs, provenance grades, and the folklore list: `~/learn-deprecated/docs/research/ui-design-evidence/README.md`. The line-by-line vetting of Anthropic's `frontend-design` skill that produced this variant: `~/learn-deprecated/docs/research/vetting-frontend-design.md`.
 
 | Principle | Finding | Source |
 |---|---|---|
