@@ -31,14 +31,14 @@ Every routing is a question to the user through **AskUserQuestion**. This is the
 
 | Destination | What executing it means |
 | --- | --- |
-| Learning interest | One item per topic in the learn app's learning inbox, captured the way the `learn-inbox` skill does it (`learn inbox capture "<topic>" --why ... --source ...`; on the mini, the JSON-stdin form), carrying the dump's motivation and source context. |
+| Learning interest | Moved to `~/inbox/learning/`, unchanged, to wait there until the learn app gains a capture command again. |
 | Project task or idea | A GitHub issue in the relevant repo, via `gh issue create`. When the repo isn't obvious, which repo is part of the question. |
 | Durable machine or infra fact | The host's page in `~/wiki`, plus an append to `~/wiki/log.md`. |
 | Do now | Done inside this session - the two-minute rule. Anything longer is a project task. |
 | Someday/maybe | Moved to `~/inbox/someday/`, re-offered at the next pass. |
 | Drop | Nothing downstream. |
 
-What lands downstream stays neutral: the learning inbox holds the interest, not lessons or SRS cards; the wiki holds the fact, not your reading of it. Each of those systems decides for itself what to do with what it is handed.
+What lands downstream stays neutral: `learning/` holds the interest, not lessons or SRS cards; the wiki holds the fact, not your reading of it. Each of those systems decides for itself what to do with what it is handed.
 
 ## Execute, archive, commit
 
@@ -50,7 +50,7 @@ mv ~/inbox/2026-08-13-2341-srs-grader-latency.md ~/inbox/archive/
 
 Plain `mv`, not `git mv` - a fresh dump is untracked until this pass commits it, and `git mv` refuses to move what git doesn't know about yet.
 
-Drop is a destination like any other: no downstream artifact, and the file still archives. The archive and the inbox's git history are the whole promise that capture is safe, and keeping a dead file costs nothing. Deferred items move to `someday/` the same way. Then commit the inbox once, for the pass rather than per file:
+Drop is a destination like any other: no downstream artifact, and the file still archives. The archive and the inbox's git history are the whole promise that capture is safe, and keeping a dead file costs nothing. Deferred items move to `someday/` the same way, and learning interests to `learning/`. Then commit the inbox once, for the pass rather than per file:
 
 ```
 git -C ~/inbox add -A && git -C ~/inbox commit -m "Triage: 9 routed, 2 someday"
@@ -60,7 +60,7 @@ git -C ~/inbox add -A && git -C ~/inbox commit -m "Triage: 9 routed, 2 someday"
 
 ## End at inbox zero
 
-`~/inbox/` finishes the pass holding nothing but `README.md`, `archive/`, and `someday/`. Close with one paragraph: how many items went where, what was done in-session, and what is now waiting in `someday/`. An item whose question the user left unanswered is the one permitted exception - it stays in the inbox root, committed with the pass, named in the summary, and is the first thing the next pass asks about.
+`~/inbox/` finishes the pass holding nothing but `README.md`, `archive/`, `someday/`, and `learning/`. Close with one paragraph: how many items went where, what was done in-session, and what is now waiting in `someday/`. An item whose question the user left unanswered is the one permitted exception - it stays in the inbox root, committed with the pass, named in the summary, and is the first thing the next pass asks about.
 
 ## Autonomous mode
 
