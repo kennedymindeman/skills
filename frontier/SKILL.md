@@ -105,6 +105,8 @@ Stopping means: leave the PR open with the unresolved findings, comment those fi
 
 ## Land the ticket and the board together
 
+Before a branch enters the queue, when `diff-coverage-gate` and `test-tamper-check` are on PATH, run both in a clean checkout of the branch with `run/<date>` as the argument, so each ticket is judged alone against the queue. A gate failure keeps the branch out of the queue and goes back as a fix dispatch; each hunk the tamper check flags goes to the reviewer to clear. Before landing the queue on main, run both again on the queue tip with no argument.
+
 Every duplication incident on record traces to work landing while the tracker held still, and a wind-down pass over the board arrives after the next session has already picked up the ghost. So a branch enters the queue in one turn, all three steps or none:
 
 1. Merge the branch into `run/<date>` with plain `git merge` and push (`gh pr merge` stays blocked; git-level merges into non-main branches are the sanctioned path).
