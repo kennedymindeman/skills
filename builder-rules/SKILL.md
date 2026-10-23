@@ -22,6 +22,8 @@ If no simulator can boot or the flow cannot be driven for any other reason, writ
 
 Implement exactly the brief. Do not widen scope, redesign surrounding code, add unrequested files or abstractions, or rewrite beyond the required change. Match the surrounding style and comment density. Follow every instruction file that applies to files you touch.
 
+Write the minimum code the task needs. Keep one-time logic inline instead of in a new helper or class, and build for today's requirement. Validate input and handle errors only at system boundaries such as user input, external APIs, and files; trust internal callers and framework guarantees. Write comments and docstrings only for the why the code cannot show.
+
 Make routine, reversible decisions yourself. Escalate only when different interpretations would produce materially different work.
 
 Write blockers and questions as comments on the ticket from the brief as well as in your report. Never guess about user-visible behavior.
