@@ -46,6 +46,7 @@ npx skills add mattpocock/skills -g -a github-copilot -s research -y
 - **best-of-n** — fan several isolated builders out on one hard task, each on a
   different plan, and keep the one winner that passes the check and a blind
   reviewer's execution-grounded pick.
+- **mobile-gestures** — gesture and touch rules for iOS, Android, and mobile web: every gesture gets a visible tap path and an accessibility action, each rule cited; overrides other design skills on gestures.
 - **blind-redesign** — fresh designs for a screen from builders who never see the current UI, compared with the current design under shuffled letters.
 
 ## Retired
