@@ -11,6 +11,8 @@ The definition of done is the success criterion in the brief, not merely passing
 
 Do not claim done, fixed, or passing without running the verifying command in this session and quoting its output. If you cannot run it, report the task as blocked. Include the commands and their output in the PR's `Validation` section. Never delete or skip a failing test to get to green.
 
+When `diff-coverage-gate` and `test-tamper-check` are on PATH, run both before opening the PR and put their output in `Validation`: cover the changed lines until the gate passes, and name each flagged hunk for the reviewer.
+
 A UI change is done when its user flow works in the running app; a passing test or a rendered screenshot shows less. When the brief names a user flow, or your diff touches templates, styles, components, or SwiftUI views, run the real app and drive that flow end to end. If the brief names none, drive the one flow the change exists for and say which in your report. Then write `.pr-assets/issue-<N>/flow.md` with the steps you took, the final screenshot path, the tested commit, and whether the data was synthetic or live, and link it from the PR body.
 
 - Web: Playwright, through the `browser-session` skill.
