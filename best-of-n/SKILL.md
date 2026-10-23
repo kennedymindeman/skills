@@ -12,7 +12,8 @@ You are the orchestrator. Builders and the reviewer are subagents; you hold the 
 Write down, once:
 
 - **Task** - the change, in one line, plus the ticket if there is one.
-- **Acceptance check** - one command that exits 0 on success, such as a test file, a repro script, or a benchmark with a threshold. Confirm it fails on `origin/main` now. A check that already passes selects nothing.
+- **Acceptance check** - one command that exits 0 on success, such as a test file, a repro script, or a benchmark with a threshold. A check that already passes selects nothing.
+- **Base** - the commit every attempt starts from, with the check's files committed in it, pushed, and its full SHA written down. Confirm the check fails at the base. `isolation: worktree` starts each builder from the remote's default branch, not from your checkout, so each builder moves itself onto the base (step 2).
 - **Slug** - `issue-<N>` with a ticket, otherwise a short name. Branches are `agent/issue-<N>-try-<K>`, or `best-of/<slug>-<K>` without a ticket.
 
 For a non-code task (a design, research, a plan), the acceptance check is a written rubric the reviewer scores against.
@@ -21,20 +22,23 @@ For a non-code task (a design, research, a plan), the acceptance check is a writ
 
 N is 3 by default and at most 5. Every brief shares the task, the acceptance check, and the base commit word for word, and commits to a **different named plan**: a different algorithm, layer, library, or point of attack. Name the plans to yourself first; when two would land as the same diff, replace one.
 
-Each brief is a builder brief (the `frontier` skill's cage works as a template) plus these lines:
+Each brief is a builder brief built on the `frontier` skill's cage, including its command discipline (one command per Bash call: the worktree isolation guard refuses compound commands), plus these lines:
 
 ```
 Plan: <one paragraph naming the approach. Commit to it; if it proves unworkable, report status: blocked with why rather than switching plans>.
-Branch: you start in an isolated worktree. Run `git switch -c <branch>` there, commit your work, and stop. Do not push or open a PR.
+Branch: you start in an isolated worktree on a harness branch. Before any edit, run each as its own call: `git branch -m <branch>`, then `git reset --hard <base SHA>`, then `git rev-parse HEAD`. Stop and report if HEAD is not <base SHA>. Commit your work on <branch> and stop. Do not push or open a PR.
+Scope: your worktree only. Leave every other branch, worktree, and `.claude/worktrees/` entry unread.
 Commit messages: describe the change; leave the plan name out of them.
-Done when: `<acceptance check>` exits 0 in your worktree. Quote its output.
+Done when: `<acceptance check>` exits 0 in your worktree. Quote its output, and report your worktree path and branch name.
 ```
+
+The rename keeps the harness from leaving a stray `worktree-agent-<id>` branch behind.
 
 A brief never mentions the other attempts, their plans, or their branches.
 
 ## 3. Dispatch the builders
 
-`cd` to the target repo first: `isolation: worktree` makes its worktree from the Bash working directory. Then send every builder in one message, one Agent call each:
+`cd` to the target repo first: `isolation: worktree` makes its worktree from the Bash working directory. The repo must sit inside the session's allowed working directories (the launch directory or an added one); otherwise Claude Code resets the cwd after the `cd`, and every worktree comes from the wrong repo. Run `pwd` to confirm the `cd` held. Then send every builder in one message, one Agent call each:
 
 ```
 Agent({
@@ -46,7 +50,7 @@ Agent({
 })
 ```
 
-Keep working while they run. Each completion notification carries the agent's worktree path, its report, and its token usage; record all three per attempt.
+Keep working while they run. Each completion notification carries the agent's worktree path, its report, and its token usage; record all three per attempt. Its `worktreeBranch` may still name the harness branch, so record the branch name the builder reports.
 
 ## 4. Filter by the check
 
@@ -58,16 +62,23 @@ For each attempt that reports a commit, run the acceptance check yourself in its
 
 ## 5. Anonymize, shuffle, and pick
 
-The reviewer must not know which plan produced which candidate, and labels must not track try numbers. Shuffle the passing branches onto letters and keep the key with you:
+The reviewer must not know which plan produced which candidate, and labels must not track try numbers or branch names. Run `mkdir -p ~/scratch/best-of-keys`, then shuffle the passing branches onto letters, redirecting the output to the key file `~/scratch/best-of-keys/<slug>.txt`. The key lives outside every directory the reviewer is pointed at.
 
 ```
 python3 -c 'import random,sys; b=sys.argv[1:]; random.shuffle(b); [print(chr(65+i), x) for i, x in enumerate(b)]' <passing branches>
 ```
 
-Redirect that output to the key file, `~/worktrees/<repo>-best-of-<slug>/key.txt`, outside every candidate checkout. For each line, make a detached checkout under a neutral path:
+For each line, export the candidate as a fresh repo with two commits, `base` and `candidate`, and no branches, remotes, or reflog from the source repo. A worktree or clone would carry the branch names. Run each as its own call, with `D=~/worktrees/<repo>-best-of-<slug>/<letter>`:
 
 ```
-git worktree add --detach ~/worktrees/<repo>-best-of-<slug>/<letter> <branch>
+mkdir -p $D
+git -C <repo> archive <base SHA> | tar -x -C $D
+git -C $D init -q
+git -C $D add -A
+git -C $D commit -qm base
+git -C <repo> diff --binary <base SHA> <branch> | git -C $D apply
+git -C $D add -A
+git -C $D commit -qm candidate
 ```
 
 Dispatch one reviewer:
@@ -81,10 +92,10 @@ Agent({
 })
 ```
 
-The reviewer brief holds the task line, the acceptance criteria, the base commit, and the candidate paths by letter. It omits plan names, branch names, try numbers, and builder reports. It asks for this:
+The reviewer brief holds the task line, the acceptance criteria, and the candidate paths by letter. It omits plan names, branch names, try numbers, and builder reports. It asks for this:
 
 ```
-Candidates A, B, C each implement the task above and each pass `<acceptance check>`. Compare them pairwise (A vs B, A vs C, B vs C). Ground every call in execution: run the tests, and write inputs that tell the candidates apart, such as edge cases, malformed input, scale, or concurrency, into a scratch directory under /tmp, then run each candidate on them. Read `git diff <base>` in each candidate directory; leave `git log` and `git branch` unread. Prefer the candidate that is correct on more of your inputs, then the one with the smaller and simpler change.
+Candidates A, B, C each implement the task above and each pass `<acceptance check>`. Compare them pairwise (A vs B, A vs C, B vs C). Ground every call in execution: run the tests, and write inputs that tell the candidates apart, such as edge cases, malformed input, scale, or concurrency, into `/tmp/best-of-<slug>-review/`, then run each candidate on them. Read `git diff HEAD~1` in each candidate directory for its change. Prefer the candidate that is correct on more of your inputs, then the one with the smaller and simpler change.
 
 Report:
 - winner: <letter>
@@ -111,11 +122,14 @@ Report, in this order:
 - which ideas were ported and which were declined, and why;
 - the winner's branch or PR URL, and the total tokens across all agents.
 
-After the report, remove every losing worktree and branch and the letter checkouts, one command per call:
+After the report, clean up, one command per call:
 
 ```
-git worktree remove --force <path>
+git worktree remove --force <losing worktree path>
 git -C <repo> branch -D <losing branch>
+rm -rf ~/worktrees/<repo>-best-of-<slug>
+rm -f ~/scratch/best-of-keys/<slug>.txt
+rm -rf /tmp/best-of-<slug>-review
 ```
 
-The winner's branch stays until its PR lands.
+Also delete any `worktree-agent-*` branch an attempt left behind because it never ran the rename (`git -C <repo> branch --list 'worktree-agent-*'`). The winner's worktree and branch stay until its PR lands. Then remove them the same way.
