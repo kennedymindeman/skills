@@ -1,6 +1,6 @@
 ---
 name: best-of-n
-description: Fans out several isolated builder attempts at one task and keeps a single winner chosen by tests and a blind reviewer. Use when asked to fan out, try several approaches, race agents, or take the best of N, or when a hard task with an objective check (a failing test, a reproducible bug, a benchmark) has already beaten one attempt or its stakes justify paying for several.
+description: Best-of-N for agent work - several isolated attempts at one hard task, one kept. Use when asked to fan out, try several approaches, race agents, or take the best of N, or when a task with an objective check (a failing test, a reproducible bug, a benchmark) has already beaten one attempt or its stakes justify paying for several. Load it before outlining or dispatching the attempts.
 ---
 
 More attempts raise the odds that one of them is right; picking it is the hard part. So **selection** carries this skill: tests filter, then a blind reviewer picks by running the candidates, never by reading their style. Each attempt follows a different **plan**, because N copies of one brief tend to fail the same way. Routine tickets go through one builder; best-of-n costs about N times the tokens.
@@ -84,7 +84,7 @@ Agent({
 The reviewer brief holds the task line, the acceptance criteria, the base commit, and the candidate paths by letter. It omits plan names, branch names, try numbers, and builder reports. It asks for this:
 
 ```
-Candidates A, B, C each implement the task above and each pass `<acceptance check>`. Compare them pairwise (A vs B, A vs C, B vs C). Ground every call in execution: run the tests, and write inputs that tell the candidates apart, such as edge cases, malformed input, scale, or concurrency, into a scratch directory under /tmp, then run each candidate on them. Read `git diff <base>` in each candidate directory; leave `git log` unread. Prefer the candidate that is correct on more of your inputs, then the one with the smaller and simpler change.
+Candidates A, B, C each implement the task above and each pass `<acceptance check>`. Compare them pairwise (A vs B, A vs C, B vs C). Ground every call in execution: run the tests, and write inputs that tell the candidates apart, such as edge cases, malformed input, scale, or concurrency, into a scratch directory under /tmp, then run each candidate on them. Read `git diff <base>` in each candidate directory; leave `git log` and `git branch` unread. Prefer the candidate that is correct on more of your inputs, then the one with the smaller and simpler change.
 
 Report:
 - winner: <letter>
