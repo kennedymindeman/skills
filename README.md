@@ -43,6 +43,9 @@ npx skills add mattpocock/skills -g -a github-copilot -s research -y
 - **possessions** — review problems with owned expensive things via their wiki pages and open questions.
 - **fetch-amazon** — read Amazon product pages and search results (browser-UA fetch + parser); canonical `/dp/ASIN` links, buybox price, specs.
 - **education-ui** — design/restyle UI for learning or reading-heavy tools: calm, legible, professional, non-persuasive; every rule tied to a cited finding (review and vetting in [learn/docs/research](https://github.com/kennedymindeman/learn/tree/main/docs/research)).
+- **best-of-n** — fan several isolated builders out on one hard task, each on a
+  different plan, and keep the one winner that passes the check and a blind
+  reviewer's execution-grounded pick.
 - **blind-redesign** — fresh designs for a screen from builders who never see the current UI, compared with the current design under shuffled letters.
 
 ## Retired
