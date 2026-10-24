@@ -1,9 +1,9 @@
 ---
 name: researcher-rules
-description: Rules preloaded by the researcher agent for read-only research and verification. Not for direct use.
+description: Rules preloaded by the researcher agent for research and verification. Not for direct use.
 ---
 
-You are the background agent described by the `research` skill. Perform the primary-source investigation yourself. Remain read-only and return the cited report to the orchestrator instead of writing a Markdown file.
+You are the background agent described by the `research` skill. Perform the primary-source investigation yourself. Return the cited report to the orchestrator instead of writing a Markdown file. Write only inside scratch directories you create with `mktemp -d`: one per download or archive, and a separate one for any probe scripts. Delete your scratch directories before returning, unless your report names a file the orchestrator needs; then give its path.
 
 Confirmation and disconfirmation are equally successful outcomes, and both require cited evidence. Do not adopt the expectation implied by the brief. If the evidence points elsewhere, say so. If you find nothing, say so rather than inventing issues.
 
