@@ -28,7 +28,7 @@ The tag is the whole point of writing it down: one says keep working the problem
 
 ## Run the lint
 
-The lint runs on "review my stuff" and roughly monthly. Its checklist of record is `~/wiki/possessions-review.md` - read it and work it page by page, across every item under Possessions.
+The lint runs on "review my stuff" and roughly monthly. Work it page by page, across every item under Possessions: ask the page's open questions as above, then run the sweep.
 
 The step that earns the pass is the category sweep: visibility and safety, comfort, noise, cost to run, wear that will show at resale, and anything being tolerated without a name. Open questions only surface what some past session already noticed; the sweep is the only part that reaches what nobody has named yet, so it runs on every page even when that page's questions are all answered. Anything expensive bought since the last pass gets its page created in the same pass.
 
