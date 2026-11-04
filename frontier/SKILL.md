@@ -17,7 +17,7 @@ Before the first dispatch, reconcile the tracker against the repo - an implement
 - `gh issue list --label in-queue` - tickets already merged into a queue branch by an earlier run; they are not takeable, and if no `run/*` branch is live the queue has stranded and gets landed or reported first.
 - `git branch -a --list 'run/*'` - a stale queue from a prior day. An unreviewed `run/<date>` gets reviewed and landed before anything new is dispatched.
 
-The audit is done when every ticket you intend to work is accounted for against every view above. Then **claim** each one - assign it, comment on it - before spawning anything; concurrent sessions have double-booked tickets and shipped duplicate PRs of the same work.
+The audit is done when every ticket you intend to work is accounted for against every view above. Then **claim** each one - assign it, and write the coordinator's name into its one status comment - before spawning anything; concurrent sessions have double-booked tickets and shipped duplicate PRs of the same work. If an earlier run left a status comment (the one naming a coordinator), edit that; otherwise post it with `gh issue comment` and take the ID from the number after `#issuecomment-` in the URL it prints. Keep the ID: every status update edits that comment in place with `gh api -X PATCH repos/<owner>/<repo>/issues/comments/<id> -f body=...`, so the ticket carries one status comment, not a trail of run noise. `Question for owner:` comments stay separate new comments - the parked-ticket check reads the newest comment holding that phrase.
 
 Every `agent/*` and `run/*` branch the audit turns up - local or remote - leaves it with a verdict, or last month's abandoned builds are still there next quarter:
 
@@ -113,9 +113,9 @@ Every duplication incident on record traces to work landing while the tracker he
 
 1. Merge the branch into `run/<date>` with plain `git merge` and push (`gh pr merge` stays blocked; git-level merges into non-main branches are the sanctioned path).
 2. Delete the branch both sides - the same `git push origin --delete <branch>` / `git branch -D <branch>` pair as the audit above.
-3. `gh issue edit <N> --remove-label ready-for-agent --add-label in-queue`, plus a comment on the issue carrying the queue tip SHA it merged at. Create the label once per repo if it is missing.
+3. `gh issue edit <N> --remove-label ready-for-agent --add-label in-queue`, plus an edit to the claim's status comment (the PATCH above, not a new comment) carrying the queue tip SHA it merged at. Create the label once per repo if it is missing.
 
-When the queue lands on main, the run closes each of its issues itself: `gh issue comment <N> --body "Landed on main at <sha> via run/<date>"` with the PR link in the body, then `gh issue edit <N> --remove-label in-queue` and `gh issue close <N>` - or, if the ticket landed partial, the same comment saying what actually shipped, `in-queue` removed all the same, and the issue left open. A partial ticket that keeps `in-queue` reads to the next audit as a stranded queue. Finished work is never parked as `ready-for-human`; that label means work only the owner can do.
+When the queue lands on main, the run closes each of its issues itself: PATCH the status comment to `Landed on main at <sha> via run/<date>` with the PR link in the body, then `gh issue edit <N> --remove-label in-queue` and `gh issue close <N>` - or, if the ticket landed partial, the same comment saying what actually shipped, `in-queue` removed all the same, and the issue left open. A partial ticket that keeps `in-queue` reads to the next audit as a stranded queue. Finished work is never parked as `ready-for-human`; that label means work only the owner can do.
 
 ## Keep the run visible
 
