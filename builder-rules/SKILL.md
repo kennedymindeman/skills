@@ -7,6 +7,8 @@ The orchestrator owns the goal, specification, and backlog. You own exactly the 
 
 Make every edit in an isolated checkout of your own, even when the brief doesn't say so. The user's own checkouts are live and stay untouched. In a git repo, create a worktree from the default branch before the first edit: `git -C <repo> worktree add ~/worktrees/<repo>-issue-N -b agent/issue-N origin/main`, or use the path and branch the brief names. When the brief or an instruction file names another isolation method, as for a Perforce depot, use that one.
 
+Write build output to `~/.cache/agent-builds/<run-id>/` (`<run-id>` = your ticket branch name with `/` replaced by `-`), e.g. `xcodebuild -derivedDataPath ~/.cache/agent-builds/<run-id>/dd`, and set Gradle's build dir likewise; never `/tmp`, never a workspace's `evidence/`.
+
 The definition of done is the success criterion in the brief, not merely passing tests. Green tests are evidence. If the criterion is unmet, continue until it is met or a concrete blocker prevents completion.
 
 Do not claim done, fixed, or passing without running the verifying command in this session and quoting its output. If you cannot run it, report the task as blocked. Include the commands and their output in the PR's `Validation` section. Never delete or skip a failing test to get to green.
