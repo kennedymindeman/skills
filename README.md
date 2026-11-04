@@ -6,11 +6,12 @@ Some skills assume a personal setup (`~/inbox`, `~/wiki`, a laptop/mini ssh pair
 
 ## Installation
 
-Install the background-agent policies that the `builder` and `researcher` agents in [dotfiles-shared](https://github.com/kennedymindeman/dotfiles-shared) preload:
+Install the background-agent policies that the `builder` and `researcher` agents in [dotfiles-shared](https://github.com/kennedymindeman/dotfiles-shared) preload, plus `review-evidence`, which its shared rules point to:
 
 ```sh
-npx skills add kennedymindeman/skills -g -a claude-code -s researcher-rules builder-rules -y
-npx skills add kennedymindeman/skills -g -a github-copilot -s researcher-rules builder-rules -y
+npx skills add kennedymindeman/skills -g -a claude-code -s researcher-rules builder-rules review-evidence -y
+npx skills add kennedymindeman/skills -g -a github-copilot -s researcher-rules builder-rules review-evidence -y
+npx skills add kennedymindeman/skills -g -a codex -s review-evidence -y
 ```
 
 Claude Code gets Matt Pocock's skills through the official `mattpocock-skills` plugin. Install the skills needed by Copilot directly from upstream:
@@ -48,6 +49,11 @@ npx skills add mattpocock/skills -g -a github-copilot -s research -y
 - **mobile-gestures** — gesture and touch rules for iOS, Android, and mobile web: every gesture gets a visible tap path and an accessibility action, each rule cited; overrides other design skills on gestures.
 - **blind-redesign** — fresh designs for a screen from builders who never see the current UI, compared with the current design under shuffled neutral names.
 - **video** — make a short narrated video (explainer, motion graphics, math animation) from a topic or script.
+- **review-evidence** — what evidence a review needs per kind of change: flows, same-viewport screenshots, test output, hook replays, simulator control states, list-motion videos.
+- **app-release** — one semver version per app, derived store build numbers, and who gets which TestFlight or Firebase build when.
+- **learn-loop** — check the learn database before teaching, then offer gap, SRS card, or wiki saves.
+- **hotels** — link each hotel to its own booking page and a Google Maps search.
+- **memes** — send a meme from `~/wiki/memes.md` when a moment fits, and save pasted ones there.
 - **weight-space-programming** — write or edit neural network weights directly from known rules, with no gradient training.
 
 ## Retired
