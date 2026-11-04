@@ -66,6 +66,9 @@ if [ -f "$COOLDOWN_FILE" ]; then
 fi
 
 # Guard: any dump in the inbox root (ignore README, archive/, someday/).
+# Root only, on purpose: -maxdepth 1 keeps mail/ captures (untrusted email
+# text, interactive triage only) from ever starting an unattended run, and
+# the prompt below tells the pass to skip mail/ when a root dump starts one.
 items=$(find "$INBOX" -maxdepth 1 -name '*.md' ! -name 'README.md' 2>/dev/null)
 if [ -z "$items" ]; then
   exit 0
@@ -75,7 +78,7 @@ echo "[$(ts)] start auto-triage ($MODE)" >> "$RUNLOG"
 
 out=$(mktemp -t auto-triage)
 run_limited "$RUN_TIMEOUT" "$CLAUDE" \
-  -p "Run the triage skill in autonomous $MODE mode, exactly as defined in its 'Autonomous mode' section. Process $INBOX." \
+  -p "Run the triage skill in autonomous $MODE mode, exactly as defined in its 'Autonomous mode' section. Process $INBOX root only; never read or route anything under $INBOX/mail/." \
   --model "$MODEL" \
   --permission-mode bypassPermissions \
   > "$out" 2>&1
