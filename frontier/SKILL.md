@@ -64,6 +64,8 @@ Reading order:
 
 Base: branch `agent/issue-<N>-<slug>` from <origin/main | the run's queue tip <sha>>.
 
+Build output goes under `~/.cache/agent-builds/<run-id>/` (`<run-id>` = the ticket branch name with `/` replaced by `-`), never `/tmp` or the run workspace's `evidence/`.
+
 MUST NOT:
 - <the branch, file, or directory that looks live but is abandoned> - IGNORE it.
 - Touch <live systems: prod data, deploys, dotfiles, the tracker beyond this issue>.
