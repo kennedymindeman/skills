@@ -1,6 +1,7 @@
 ---
 name: unslop
-description: Cut AI tells from any writing. Must always apply.
+description: Rewrites a given text to remove AI writing patterns and add a human voice. Use on /unslop when asked to unslop, de-AI, or humanize a draft.
+disable-model-invocation: true
 ---
 
 # Unslop
