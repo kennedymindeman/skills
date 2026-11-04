@@ -48,6 +48,7 @@ npx skills add mattpocock/skills -g -a github-copilot -s research -y
 - **mobile-gestures** — gesture and touch rules for iOS, Android, and mobile web: every gesture gets a visible tap path and an accessibility action, each rule cited; overrides other design skills on gestures.
 - **blind-redesign** — fresh designs for a screen from builders who never see the current UI, compared with the current design under shuffled neutral names.
 - **video** — make a short narrated video (explainer, motion graphics, math animation) from a topic or script.
+- **unslop** — user-invoked (`/unslop`) rewrite of a given draft to remove AI writing patterns; the always-on checks live in the Direct output style in dotfiles-shared.
 - **weight-space-programming** — write or edit neural network weights directly from known rules, with no gradient training.
 
 ## Retired
