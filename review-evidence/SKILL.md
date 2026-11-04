@@ -1,6 +1,6 @@
 ---
 name: review-evidence
-description: Records the evidence a review needs for a change. Use when preparing a PR or review for changed interactions, layout, backend work, a PreToolUse or PostToolUse hook, a UI change in an app, or a change to how a list moves (collapse, reorder, insert, scroll anchoring).
+description: Records the evidence a change needs before review, merge, or shipping. Use when a change touches interactions, layout, backend code, a PreToolUse or PostToolUse hook, an app's UI, or how a list moves (collapse, reorder, insert, scroll anchoring), including direct-to-main changes.
 ---
 
 # Review evidence
