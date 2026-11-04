@@ -17,7 +17,7 @@ Before the first dispatch, reconcile the tracker against the repo - an implement
 - `gh issue list --label in-queue` - tickets already merged into a queue branch by an earlier run; they are not takeable, and if no `run/*` branch is live the queue has stranded and gets landed or reported first.
 - `git branch -a --list 'run/*'` - a stale queue from a prior day. An unreviewed `run/<date>` gets reviewed and landed before anything new is dispatched.
 
-The audit is done when every ticket you intend to work is accounted for against every view above. Then **claim** each one - assign it, and write the coordinator's name into its one status comment - before spawning anything; concurrent sessions have double-booked tickets and shipped duplicate PRs of the same work. If an earlier run left a status comment (the one naming a coordinator), edit that; otherwise post it with `gh issue comment` and take the ID from the number after `#issuecomment-` in the URL it prints. Keep the ID: every status update edits that comment in place with `gh api -X PATCH repos/<owner>/<repo>/issues/comments/<id> -f body=...`, so the ticket carries one status comment, not a trail of run noise. `Question for owner:` comments stay separate new comments - the parked-ticket check reads the newest comment holding that phrase.
+The audit is done when every ticket you intend to work is accounted for against every view above. Then **claim** each one - assign it, and write the coordinator's name into its one status comment - before spawning anything; concurrent sessions have double-booked tickets and shipped duplicate PRs of the same work. If an earlier run left a status comment (the one naming a coordinator), edit that; otherwise post it with `gh issue comment` and take the ID from the number after `#issuecomment-` in the URL it prints. Keep the ID: every status update edits that comment in place with `gh api -X PATCH repos/<owner>/<repo>/issues/comments/<id> -F body=@<file>`, with the body written by the Write tool, so the ticket carries one status comment, not a trail of run noise. `Question for owner:` comments stay separate new comments - the parked-ticket check reads the newest comment holding that phrase.
 
 Every `agent/*` and `run/*` branch the audit turns up - local or remote - leaves it with a verdict, or last month's abandoned builds are still there next quarter:
 
@@ -37,7 +37,7 @@ Whenever that list is non-empty it goes in the run summary; the session-end swee
 4. Work only the owner can do - sudo, a console, live data, taste - gets `gh issue edit <N> --remove-label needs-triage --add-label ready-for-human`. One state label per ticket, always, so the remove is never optional.
 5. Comment on nothing you merely skipped.
 
-The questions this pass raises route out the same run: an interactive session puts them to the owner as AskUserQuestion batches of 4 before the first dispatch, and a headless run lists the newly parked tickets under "Needs you" alongside the ones the audit found.
+The questions this pass raises route out the same run: an interactive session parks each on its ticket, keeps dispatching the rest, and puts them to the owner as AskUserQuestion batches of 4 once no other work is left, and a headless run lists the newly parked tickets under "Needs you" alongside the ones the audit found.
 
 ## Check before you dispatch
 
@@ -63,8 +63,6 @@ Reading order:
 3. <the closest existing implementation> - the pattern to copy.
 
 Base: branch `agent/issue-<N>-<slug>` from <origin/main | the run's queue tip <sha>>.
-
-Build output goes under `~/.cache/agent-builds/<run-id>/` (`<run-id>` = the ticket branch name with `/` replaced by `-`), never `/tmp` or the run workspace's `evidence/`.
 
 MUST NOT:
 - <the branch, file, or directory that looks live but is abandoned> - IGNORE it.
@@ -111,7 +109,7 @@ Before a branch enters the queue, when `diff-coverage-gate` and `test-tamper-che
 
 Every duplication incident on record traces to work landing while the tracker held still, and a wind-down pass over the board arrives after the next session has already picked up the ghost. So a branch enters the queue in one turn, all three steps or none:
 
-1. Merge the branch into `run/<date>` with plain `git merge` and push (`gh pr merge` stays blocked; git-level merges into non-main branches are the sanctioned path).
+1. Merge the branch into `run/<date>` with plain `git merge` and push (queue entries use git-level merges, not `gh pr merge`; Branching's merge steps apply to PRs into main).
 2. Delete the branch both sides - the same `git push origin --delete <branch>` / `git branch -D <branch>` pair as the audit above.
 3. `gh issue edit <N> --remove-label ready-for-agent --add-label in-queue`, plus an edit to the claim's status comment (the PATCH above, not a new comment) carrying the queue tip SHA it merged at. Create the label once per repo if it is missing.
 
