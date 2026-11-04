@@ -39,6 +39,7 @@ npx skills add mattpocock/skills -g -a github-copilot -s research -y
 - **import-schedule** — turn a schedule screenshot into Google Calendar events, writing nothing until the parsed list is confirmed.
 - **read-document** — extract text from PDF/docx/pptx/xlsx before reading; visual reads only for scans/layout.
 - **watch** — arm a background watch (Bash until-loop or Monitor) instead of polling for an external condition.
+- **unslop** — user-invoked (`/unslop`) rewrite of a given draft to remove AI writing patterns; the always-on checks live in the Direct output style in dotfiles-shared.
 - **browser-session** — Playwright automation under per-site storageState bot logins.
 - **possessions** — review problems with owned expensive things via their wiki pages and open questions.
 - **fetch-amazon** — read Amazon product pages and search results (browser-UA fetch + parser); canonical `/dp/ASIN` links, buybox price, specs.
@@ -66,7 +67,7 @@ npx skills add mattpocock/skills -g -a github-copilot -s research -y
   renderer lives on in the
   [learn](https://github.com/kennedymindeman/learn) repo.
 - **technical-writing** — docs style guide imported from Cursor's pstack
-  plugin. Never invoked; `unslop` and the global plain-language and PR-writing
+  plugin. Never invoked; the Direct output style and the global plain-language and PR-writing
   rules already cover its sentence rules.
 - **paste-screenshot** — fetched a pasted screenshot through the clipaste
   tunnel. The shotpaste daemon now copies each screenshot to the session's
