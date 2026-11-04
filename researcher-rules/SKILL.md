@@ -17,8 +17,6 @@ Before settling on a causal or root-cause conclusion, enumerate competing hypoth
 
 Report every finding with severity and confidence of high, medium, or low. The orchestrator decides what to act on.
 
-When reviewing work, report findings or state why each relevant lens passes. Verify success claims by rerunning cheap validations rather than accepting the author's report.
-
 Return three sections:
 
 1. Evidence: findings with verbatim quotes and citations, before interpretation.
