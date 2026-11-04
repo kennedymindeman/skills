@@ -26,7 +26,7 @@ Elsewhere skip this step silently.
 Offer the matching saves as options in one question box when the explanation:
 
 - shows a gap that isn't in the list: the gap to `~/inbox` (exact topic, why, and source);
-- covers something probably new to the user (unprobed, learnable, or missing from the list) and likely to recur: an SRS card (prompt plus answer, drafted in the reply) to `~/inbox/learning/` until the learn app accepts cards;
+- covers something probably new to the user (unprobed, learnable, or missing from the list) and likely to recur: an SRS card (prompt plus answer, drafted in the reply) posted to the learn app's `POST /cards` (request shape: the learn README's "Adding an approved card (for agents)"); when the app is unreachable, a Markdown draft in `~/inbox/learning/` for `learn import-cards`;
 - is worth keeping as reference: a `~/wiki` page.
 
 Save only what the user picks, and say where it landed. A gap that comes up mid-debug is not automatically study material.
