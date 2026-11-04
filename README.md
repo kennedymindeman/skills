@@ -11,6 +11,7 @@ Install the background-agent policies that the `builder` and `researcher` agents
 ```sh
 npx skills add kennedymindeman/skills -g -a claude-code -s researcher-rules builder-rules review-evidence -y
 npx skills add kennedymindeman/skills -g -a github-copilot -s researcher-rules builder-rules review-evidence -y
+npx skills add kennedymindeman/skills -g -a codex -s review-evidence -y
 ```
 
 Claude Code gets Matt Pocock's skills through the official `mattpocock-skills` plugin. Install the skills needed by Copilot directly from upstream:
