@@ -13,7 +13,7 @@ Before the first dispatch, reconcile the tracker against the repo - an implement
 - `git worktree list` - checkouts still held, and by which repo.
 - `gh pr list` - open PRs and the issue each one closes.
 - Issue assignees and recent comments - a concurrent session may already hold the ticket.
-- `gh issue list --label needs-info` and `--label ready-for-human` - tickets a prior run parked. In an interactive session these go to the owner first, as AskUserQuestion batches of 4, before any dispatch; a headless run lists them under "Needs you" and moves on.
+- `gh issue list --label needs-info` and `--label ready-for-human` - tickets a prior run parked. In an interactive session these go to the owner first, as AskUserQuestion batches of 4, before any dispatch; a headless run lists them under "Blocked on me" and moves on.
 - `gh issue list --label in-queue` - tickets already merged into a queue branch by an earlier run; they are not takeable, and if no `run/*` branch is live the queue has stranded and gets landed or reported first.
 - `git branch -a --list 'run/*'` - a stale queue from a prior day. An unreviewed `run/<date>` gets reviewed and landed before anything new is dispatched.
 
@@ -22,7 +22,7 @@ The audit is done when every ticket you intend to work is accounted for against 
 Every `agent/*` and `run/*` branch the audit turns up - local or remote - leaves it with a verdict, or last month's abandoned builds are still there next quarter:
 
 - **Merged into `origin/main`** (`git branch -a --merged origin/main | grep agent/`) - delete it both sides, stripping the `origin/` prefix from the name: `git push origin --delete <branch>`, `git branch -D <branch>`, then `git worktree prune`.
-- **Unmerged, ticket closed** - leave the branch alone and report it by name under "Needs you" with its ticket and last commit date (`git log -1 --format=%cs <branch>`); the owner decides whether it dies.
+- **Unmerged, ticket closed** - leave the branch alone and report it by name under "Blocked on me" with its ticket and last commit date (`git log -1 --format=%cs <branch>`); the owner decides whether it dies.
 - **Unmerged, ticket open** - that branch is the ticket's starting point, so the brief bases on it rather than commissioning a fresh build of work that already exists.
 
 Whenever that list is non-empty it goes in the run summary; the session-end sweep is this pass's counterpart for the branches the run itself created.
@@ -37,7 +37,7 @@ Whenever that list is non-empty it goes in the run summary; the session-end swee
 4. Work only the owner can do - sudo, a console, live data, taste - gets `gh issue edit <N> --remove-label needs-triage --add-label ready-for-human`. One state label per ticket, always, so the remove is never optional.
 5. Comment on nothing you merely skipped.
 
-The questions this pass raises route out the same run: an interactive session parks each on its ticket, keeps dispatching the rest, and puts them to the owner as AskUserQuestion batches of 4 once no other work is left, and a headless run lists the newly parked tickets under "Needs you" alongside the ones the audit found.
+The questions this pass raises route out the same run: an interactive session parks each on its ticket, keeps dispatching the rest, and puts them to the owner as AskUserQuestion batches of 4 once no other work is left, and a headless run lists the newly parked tickets under "Blocked on me" alongside the ones the audit found.
 
 ## Check before you dispatch
 
@@ -85,7 +85,7 @@ Success criterion: <the goal-delta, checkable by someone who reads only the diff
 Report back: `status: done|blocked|partial` / what changed / `validation:` command + output / PR link / `questions:` / found-not-acted-on / ambiguous-and-how-I-resolved-it.
 ```
 
-For UI or prototype tickets, restate the standing interaction rules in the brief - write deliverables to disk, use AskUserQuestion for choices. Subagents inherit none of them. The brief also names one user flow - "log water, see the total update" - and the success criterion is that flow driven end to end in the running app, evidenced in `.pr-assets/issue-<N>/flow.md` as `builder-rules` describes and linked from the PR body. A screenshot shows a render, not a working flow. Before landing, the orchestrator removes `.pr-assets/` with one commit on the queue tip so it never reaches main.
+For UI or prototype tickets, restate the standing interaction rules in the brief - write deliverables to disk, and put any choice for the owner in the report, since a builder has no AskUserQuestion. Subagents inherit none of these rules. The brief also names one user flow - "log water, see the total update" - and the success criterion is that flow driven end to end in the running app, evidenced in `.pr-assets/issue-<N>/flow.md` as `builder-rules` describes and linked from the PR body. A screenshot shows a render, not a working flow. Before landing, the orchestrator removes `.pr-assets/` with one commit on the queue tip so it never reaches main.
 
 ## Dispatch by role
 
@@ -101,7 +101,7 @@ Two breakers per ticket, both tunable:
 - **Fix cap** - after K=3 review→fix rounds the ticket stops.
 - **No progress** - a round that returns no diff, or the same error string as the round before, gets one retry with that error quoted in the brief; still nothing, and the ticket stops.
 
-Stopping means: leave the PR open with the unresolved findings, comment those findings on the issue as one `Question for owner:` comment - the same shape triage step 3 leaves, so every `needs-info` ticket scans the same, then `gh issue edit <N> --remove-label ready-for-agent --add-label needs-info`, and move on. Only `status: done` carrying validation output is landable; `blocked` and `partial` stop the same way, as do reported questions. Log every trip as one line in the run summary - `stopped #N: fix-cap 3/3`, `stopped #N: no-progress` - and list the `needs-info` tickets under "Needs you".
+Stopping means: leave the PR open with the unresolved findings, comment those findings on the issue as one `Question for owner:` comment - the same shape triage step 3 leaves, so every `needs-info` ticket scans the same, then `gh issue edit <N> --remove-label ready-for-agent --add-label needs-info`, release the assignment and note the released lease in the status comment (the PATCH above, not a new comment), and move on. Only `status: done` carrying validation output is landable; `blocked` and `partial` stop the same way, as do reported questions. Log every trip as one line in the run summary - `stopped #N: fix-cap 3/3`, `stopped #N: no-progress` - and list the `needs-info` tickets under "Blocked on me".
 
 ## Land the ticket and the board together
 
@@ -109,7 +109,7 @@ Before a branch enters the queue, when `diff-coverage-gate` and `test-tamper-che
 
 Every duplication incident on record traces to work landing while the tracker held still, and a wind-down pass over the board arrives after the next session has already picked up the ghost. So a branch enters the queue in one turn, all three steps or none:
 
-1. Merge the branch into `run/<date>` with plain `git merge` and push (queue entries use git-level merges, not `gh pr merge`; Branching's merge steps apply to PRs into main).
+1. Merge the branch into `run/<date>` with plain `git merge` and push (queue entries use git-level merges, not `gh pr merge`).
 2. Delete the branch both sides - the same `git push origin --delete <branch>` / `git branch -D <branch>` pair as the audit above.
 3. `gh issue edit <N> --remove-label ready-for-agent --add-label in-queue`, plus an edit to the claim's status comment (the PATCH above, not a new comment) carrying the queue tip SHA it merged at. Create the label once per repo if it is missing.
 
