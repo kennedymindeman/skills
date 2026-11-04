@@ -19,7 +19,18 @@ That yields one completion notification. Background Bash is capped by its `timeo
 
 **Longer, or repeating - the `Monitor` tool.** It is deferred: load it with `ToolSearch("select:Monitor")`. Monitor runs a script in the background and turns every stdout line into a notification; the watch ends when the script exits. `persistent: true` removes the timeout. For a one-shot wait past the ten-minute cap, hand it a command that exits on the first match, still with `persistent: true` - same single notification, no cap. Stop one early with `TaskStop` (also deferred).
 
-Before arming a Monitor, read `~/wiki/claude-code-waiting-for-triggers.md`. Per-line flushing, matching every terminal state rather than only success, and the right poll interval are what separate a watch that fires from one that sits silent or gets auto-stopped as a firehose. The page also carries the worked recipes for these machines - a file landing via scp, P1S print state over MQTT, `gh pr checks` diffed poll to poll - and the pitfall log behind these rules.
+Without `persistent: true` a Monitor times out at 3600000 ms (one hour). The rules that separate a watch that fires from one that sits silent or gets auto-stopped:
+
+- Every pipe stage flushes per line (`grep --line-buffered`, `awk '{print; fflush()}'`). A buffered stage, or `| head -N`, holds the line that should have fired.
+- Match every terminal state - failed, cancelled, paused - and not only success. Silence looks identical to "still running".
+- Emit only lines you would act on. A firehose gets the monitor auto-stopped.
+- Poll remote APIs every 30 s or slower, local checks every 0.5-5 s, and wrap flaky calls in `|| true` so one error doesn't end the watch.
+- A file arriving by `scp` or download may still be writing when it first appears: wait a few seconds after the match before reading it.
+- For CI, diff `gh pr checks <n> --json name,bucket` against the previous poll and exit once nothing is pending.
+- A notification is an event, not the user's reply, even when it lands while a question is pending.
+- Give the Monitor a specific `description`; it is shown on every notification.
+
+`~/wiki/claude-code-waiting-for-triggers.md` holds the machine-specific recipes (printer state, camera checks) and the pitfall log behind these rules.
 
 ## Say what is armed
 

@@ -1,9 +1,9 @@
 ---
 name: blind-redesign
-description: Blind redesign: builders who never see the current screen each design it fresh, then the user picks among them and the current design under shuffled letters. Use when asked for redesign options to choose from, a fresh take on a screen, or a blind design comparison.
+description: Blind redesign: builders who never see the current screen each design it fresh, then the user picks among them and the current design under shuffled neutral names. Use when asked for redesign options to choose from, a fresh take on a screen, or a blind design comparison.
 ---
 
-A redesign built on top of the current UI inherits its layout, and a comparison where the user knows which one is their current screen is not a fair one. So both halves are **blind**: builders design from what the screen is for, never from what it looks like now, and the user picks from letters before they learn which letter is the current design.
+A redesign built on top of the current UI inherits its layout, and a comparison where the user knows which one is their current screen is not a fair one. So both halves are **blind**: builders design from what the screen is for, never from what it looks like now, and the user picks from shuffled neutral names (Amber, Cobalt, ...) before they learn which name is the current design.
 
 You are the orchestrator. You may read the current UI to find its files; everything you hand a builder is scrubbed of it.
 
@@ -82,8 +82,8 @@ The capture step is done when every source folder holds the same set of file nam
 preview ~/worktrees/<repo>-redesign-<slug>/compare <slug>-blind
 ```
 
-`compare.py` shuffles the sources onto letters, writes a self-contained `index.html` with every image inlined, and writes the key to `compare.key.txt` beside the served folder, outside what `preview` publishes.
+`compare.py` shuffles the sources onto neutral names, writes a self-contained `index.html` with every image inlined, and writes the key to `compare.key.txt` beside the served folder, outside what `preview` publishes.
 
-Hand the user the preview URL and the key's path, and ask which letter they pick. Keep which letter is the current design out of the conversation until they have chosen; the key file is where they learn it.
+Hand the user the preview URL and the key's path, and ask which name they pick. Keep which name is the current design out of the conversation until they have chosen; the key file is where they learn it.
 
 The variant branches stay unmerged. The picked one becomes a normal PR only when the user asks for it. Its orphan root shares no history with main, so branch from `origin/main` and copy the variant's files over (`git fetch <vN clone> redesign/<slug>-vN`, then `git checkout FETCH_HEAD -- <paths>`).

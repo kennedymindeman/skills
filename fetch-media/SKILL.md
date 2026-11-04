@@ -57,15 +57,15 @@ Every branch caps at 1080p. That is the resolution where conference posters and 
 
 ## Reddit
 
-Reddit blocks every logged-out request, JSON and HTML alike, from any IP. Read it through the Redlib mirror red.artemislena.eu with curl's own user agent; the mirror serves browser user agents an Anubis challenge and curl the page:
+Reddit blocks every logged-out request, JSON and HTML alike, from any IP. Read it through a Redlib mirror with curl's own user agent - safereddit.com first, red.artemislena.eu when safereddit fails. The mirrors serve browser user agents an Anubis challenge and curl the page:
 
 ```sh
-curl -s -A 'curl/8.7.1' 'https://red.artemislena.eu/r/<sub>/comments/<id>/?sort=top'   # thread
-curl -s -A 'curl/8.7.1' 'https://red.artemislena.eu/r/<sub>/top?t=week'               # listing
-curl -s -A 'curl/8.7.1' 'https://red.artemislena.eu/r/<sub>/search?q=<terms>&restrict_sr=on&sort=new'
+curl -s -A 'curl/8.7.1' 'https://safereddit.com/r/<sub>/comments/<id>/?sort=top'   # thread
+curl -s -A 'curl/8.7.1' 'https://safereddit.com/r/<sub>/top?t=week'               # listing
+curl -s -A 'curl/8.7.1' 'https://safereddit.com/r/<sub>/search?q=<terms>&restrict_sr=on&sort=new'
 ```
 
-Swap `www.reddit.com` for the mirror host and keep the path; the thread path needs its leading `/`. The mirror returns HTML only. Post text sits in `post_title` and `post_body`, comments in `comment` blocks with `comment_author`, `comment_score`, and `comment_body`, and replies nest under `replies`. The fetch worked when the body contains `comment_body`. When it holds a challenge page, a 429, or a redirect instead, report the status and ask the user to paste the thread.
+Swap `www.reddit.com` for the mirror host and keep the path; the thread path needs its leading `/`. The mirror returns HTML only. Post text sits in `post_title` and `post_body`, comments in `comment` blocks with `comment_author`, `comment_score`, and `comment_body`, and replies nest under `replies`. The fetch worked when the body contains `comment_body`. When it holds a challenge page, a 429, a redirect, or "Failed to parse page JSON data" instead, rerun the same path on red.artemislena.eu. Both failing: report the statuses and ask the user to paste the thread.
 
 ## Delegating
 

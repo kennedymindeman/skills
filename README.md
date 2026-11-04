@@ -35,7 +35,6 @@ npx skills add mattpocock/skills -g -a github-copilot -s research -y
   honest.
 - **fetch-media** — read YouTube transcripts/frames and Reddit threads that WebFetch/curl can't.
 - **distill-video** — turn a YouTube link into a thesis plus timestamped evidence and a transcript-backed Q&A, instead of watching the whole thing.
-- **paste-screenshot** — fetch a Cmd+V-pasted screenshot through the clipaste tunnel when the session runs over ssh.
 - **import-schedule** — turn a schedule screenshot into Google Calendar events, writing nothing until the parsed list is confirmed.
 - **read-document** — extract text from PDF/docx/pptx/xlsx before reading; visual reads only for scans/layout.
 - **watch** — arm a background watch (Bash until-loop or Monitor) instead of polling for an external condition.
@@ -47,7 +46,9 @@ npx skills add mattpocock/skills -g -a github-copilot -s research -y
   different plan, and keep the one winner that passes the check and a blind
   reviewer's execution-grounded pick.
 - **mobile-gestures** — gesture and touch rules for iOS, Android, and mobile web: every gesture gets a visible tap path and an accessibility action, each rule cited; overrides other design skills on gestures.
-- **blind-redesign** — fresh designs for a screen from builders who never see the current UI, compared with the current design under shuffled letters.
+- **blind-redesign** — fresh designs for a screen from builders who never see the current UI, compared with the current design under shuffled neutral names.
+- **video** — make a short narrated video (explainer, motion graphics, math animation) from a topic or script.
+- **weight-space-programming** — write or edit neural network weights directly from known rules, with no gradient training.
 
 ## Retired
 
@@ -61,3 +62,7 @@ npx skills add mattpocock/skills -g -a github-copilot -s research -y
 - **technical-writing** — docs style guide imported from Cursor's pstack
   plugin. Never invoked; `unslop` and the global plain-language and PR-writing
   rules already cover its sentence rules.
+- **paste-screenshot** — fetched a pasted screenshot through the clipaste
+  tunnel. The shotpaste daemon now copies each screenshot to the session's
+  machine before the path is pastable, so the file is already local and
+  Claude Code attaches it.
