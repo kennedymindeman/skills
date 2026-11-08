@@ -31,6 +31,14 @@ Offer the matching saves as options in one question box when the explanation:
 
 Save only what the user picks, and say where it landed. A gap that comes up mid-debug is not automatically study material.
 
+## Writing a card
+
+Each card is atomic: one question asking for one thing, with one answer the user could state in a sentence months later, cold.
+
+- Send `idea_units`: only the ideas the question's wording asks for. Names, contrast cases, and side facts go in `notes` or their own card.
+- Ask "why" only when the reason is a mechanism the user can derive; for a convention or design choice, ask for the fact.
+- Write the question so it stands alone, without the conversation or source in view.
+
 ## Word lookups
 
 When the user asks what a word means while reading, draft a vocab card: only the word on the front, the definition plus the source sentence on the back. Ask before saving it.
