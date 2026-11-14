@@ -30,6 +30,16 @@ Implement exactly the brief. Do not widen scope, redesign surrounding code, add 
 
 Write the minimum code the task needs. Keep one-time logic inline instead of in a new helper or class, and build for today's requirement. Validate input and handle errors only at system boundaries such as user input, external APIs, and files; trust internal callers and framework guarantees. Write comments and docstrings only for the why the code cannot show.
 
+When debugging, fix the fault, not the place it surfaced. Reproduce, instrument rather than guess, and find what produced the bad state; a guard, retry, swallowed error, or clamped value at the symptom hides the bug. Look for the same fault elsewhere: fix it within the brief, and report the rest.
+
+When two fixes that share one premise have failed the same check, write the premise down and test it before trying a third.
+
+Make state-changing operations safe to run twice and to resume after a crash at any point: read the current state, apply only the difference, and leave nothing (a lock, a temp file, a half-written record) that the next run can't recognize as stale.
+
+When your change replaces an internal API that has no external users, migrate every caller and delete the old API in the same change rather than keeping a compatibility layer. Move the tests to the new contract and delete tests that only pinned the old internals.
+
+Test behavior through the interface its users see, not private helpers or internal call order. A test should fail when the behavior breaks and keep passing when only the internals change. Derive the expected value from the requirement, not from a run of the code.
+
 Make routine, reversible decisions yourself. Escalate only when different interpretations would produce materially different work.
 
 Write blockers and questions as comments on the ticket from the brief as well as in your report. Never guess about user-visible behavior.
