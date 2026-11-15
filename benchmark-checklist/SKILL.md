@@ -1,6 +1,6 @@
 ---
 name: benchmark-checklist
-description: Vets a measured performance number (limiter, tuning, physical limits, errors, repeatability, relevance, and whether the work happened) before anyone reports or acts on it. Use when running a benchmark, comparing libraries or configs by speed, or claiming a speedup, regression, throughput, latency, or eval result you measured, including a PR's before-and-after numbers.
+description: Vets a measured performance number before anyone reports or acts on it. Use when running a benchmark, comparing libraries or configs by speed, or claiming a speedup, regression, throughput, latency, or eval result you measured, including a PR's before-and-after numbers.
 ---
 
 # Benchmark checklist

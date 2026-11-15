@@ -1,6 +1,7 @@
 ---
 name: decision-log
-description: Keeps a reviewable decision trail for long-running work as a TSV log with one row per decision (what, why, evidence, result). Use when starting an unattended, overnight, or multi-phase run, work a human will review after stepping away, or when another skill asks for an audit trail.
+description: Keeps a reviewable decision trail for long-running work as a TSV log with one row per decision (what, why, evidence, result). Use when the user types /decision-log or a brief names decision-log for an unattended, overnight, or multi-phase run.
+disable-model-invocation: true
 ---
 
 # Decision log
@@ -30,7 +31,7 @@ ts	phase	decision	why	evidence	result
 
 ## Logging a row
 
-Write each entry the way you'd tell a teammate what you did. Plain words, concrete actions, no AI speak or abstract jargon (`unslop` applies to log text too).
+Write each entry the way you'd tell a teammate what you did. Plain words, concrete actions, no AI speak or abstract jargon.
 
 Append with `uv run <this skill's directory>/scripts/log.py <logfile> <phase> <decision> <why> <evidence> <result>` (plain `python3` runs it too). It stamps `ts`, writes the header on first use, strips tabs and newlines, and prefixes any cell starting with `=`, `+`, `-`, or `@` with a single quote so a spreadsheet won't run it as a formula. Use it rather than a hand-built append whenever cells come from generated or user-supplied text.
 
@@ -51,7 +52,7 @@ Commit it only when the work is ambitious enough that a reviewer needs the trail
 
 ## Audit the log against the transcript
 
-At the end of the run, before handing back, check the log told the truth. Read this run's transcript: the newest `.jsonl` directly in `~/.claude/projects/<slug>/`, where the slug is the workspace path with each `/` and `.` changed to `-`. Read only this workspace's folder; other folders hold unrelated private chats. Walk this run's rows against what actually happened. Each stretch of them begins at one of this run's `start` rows, or at the first row if this run created the log, and ends at the next `start` row of another run:
+At the end of the run, before handing back, check the log told the truth. Read this run's transcript. Under `~/.claude/projects/`, each workspace has one folder named after its path (for example, `C:\Users\Kennedy` is `C--Users-Kennedy`); list the folder names and pick the one for this workspace. In it, a main session's transcript is `<session-id>.jsonl`, and a subagent's is `<session-id>/subagents/agent-<id>.jsonl` under the session that spawned it. If you don't know your session or agent id, take the most recently modified candidate and confirm it is yours by searching it for your log's path. Read only this workspace's folder; other folders hold unrelated private chats. Walk this run's rows against what actually happened. Each stretch of them begins at one of this run's `start` rows, or at the first row if this run created the log, and ends at the next `start` row of another run:
 
 - Check that every row maps to a real decision or action.
 - Check that each row's evidence resolves and shows what the row claims.
@@ -68,7 +69,9 @@ Before handing back, spawn a fresh subagent that did not do the work. Self-revie
 - Choices that look risky in hindsight (premature, scope-creeping, papering over a symptom).
 - Gaps the user would otherwise miss on a casual skim.
 
-Every reply for a run that produced a trail ends with an "Attention" section listing each flag with the rows or moments it points to. "No flags" is a valid value.
+If you can't spawn a subagent (a subagent can't spawn its own), log a row saying the trail was not independently reviewed, and say so in the final report so the parent can review it.
+
+The final report names the log's path and states whether the trail was independently reviewed.
 
 ## Reviewing the trail
 

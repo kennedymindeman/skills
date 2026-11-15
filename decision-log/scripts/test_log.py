@@ -3,6 +3,7 @@ import io
 import sys
 import tempfile
 import unittest
+from unittest import mock
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -52,9 +53,16 @@ class DecisionLogTest(unittest.TestCase):
         self.assertEqual(log.clean(""), "")
 
     def test_timestamp_is_utc_iso(self):
-        log.append(self.path, ["a", "b", "c", "d", "e"])
-        ts = self.rows()[1].split("\t")[0]
-        self.assertRegex(ts, r"^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ$")
+        # A clock whose local time is five hours off UTC, so a local-time
+        # stamp with a Z suffix fails on any machine.
+        class Clock(datetime):
+            @classmethod
+            def now(cls, tz=None):
+                return NOW.astimezone(tz) if tz else datetime(2026, 5, 24, 4, 2)
+
+        with mock.patch.object(log, "datetime", Clock):
+            log.append(self.path, ["a", "b", "c", "d", "e"])
+        self.assertEqual(self.rows()[1].split("\t")[0], "2026-05-24T09:02:00Z")
 
     def test_main_rejects_wrong_arg_count(self):
         with contextlib.redirect_stderr(io.StringIO()) as err:
