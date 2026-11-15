@@ -56,6 +56,10 @@ npx skills add mattpocock/skills -g -a github-copilot -s research -y
 - **hotels** — link each hotel to its own booking page and a Google Maps search.
 - **memes** — send a meme from `~/wiki/memes.md` when a moment fits, and save pasted ones there.
 - **weight-space-programming** — write or edit neural network weights directly from known rules, with no gradient training.
+- **blast-radius** — find what a change breaks outside its diff, and prove the one fact it is safe because of by running real code.
+- **benchmark-checklist** — vet a measured performance or eval number (limiter, tuning, errors, repeatability, relevance) before reporting or acting on it.
+- **sharpen** — user-invoked (`/sharpen`) rewrite of a prompt into a deeper version of the task, not a bigger one.
+- **decision-log** — user-invoked (`/decision-log`, or named in a brief) trail of one TSV row per decision (what, why, evidence, result) for unattended or multi-phase runs, audited against the transcript before handback.
 
 ## Retired
 
