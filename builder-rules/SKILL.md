@@ -30,6 +30,16 @@ Implement exactly the brief. Do not widen scope, redesign surrounding code, add 
 
 Write the minimum code the task needs. Keep one-time logic inline instead of in a new helper or class, and build for today's requirement. Validate input and handle errors only at system boundaries such as user input, external APIs, and files; trust internal callers and framework guarantees. Write comments and docstrings only for the why the code cannot show.
 
+When debugging, fix the fault, not the place it surfaced. Reproduce, instrument rather than guess, and ask whether the state that triggered it is legitimate. If the system may validly be in that state, handling it where the code broke is the fix. If the state should never occur, a guard, retry, swallowed error, or clamped value there hides the bug; find what produced the state. Look for the same fault elsewhere: fix it within the brief, and report the rest.
+
+When two fixes that share one premise have failed the same check, write the premise down and test it before trying a third.
+
+When the task builds a command, lifecycle step, or processing loop that can be retried, restarted, or interrupted, make it safe to run twice and to resume after a crash at any point: read the current state, apply only the difference, and leave nothing (a lock, a temp file, a half-written record) that the next run can't recognize as stale. That is part of the minimum such code needs, not extra scope.
+
+When the brief is itself the refactor that replaces an internal API with no outside users, migrate every caller and delete the old API in the same change rather than keeping a compatibility layer. As part of that change, update the tests that asserted the removed API to the new contract.
+
+Test behavior through the interface its users see, not private helpers or internal call order. A test should fail when the behavior breaks and keep passing when only the internals change. Derive the expected value from the requirement, not from a run of the code.
+
 Make routine, reversible decisions yourself. Escalate only when different interpretations would produce materially different work.
 
 Write blockers and questions as comments on the ticket from the brief as well as in your report. Never guess about user-visible behavior.
