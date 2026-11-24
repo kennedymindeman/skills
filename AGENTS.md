@@ -1,5 +1,5 @@
 # writingSkills
-Before writing or editing any skill in this repo, load the `mattpocock-skills:writing-for-agents` skill (plugin-namespaced) — it owns the method (pointers, disclosure, leading words, pruning) and its `SKILL-MECHANICS.md` owns the model-vs-user invocation choice. This file adds only skill-authoring facts and repo conventions that skill doesn't carry.
+Before writing or editing any skill in this repo, load the `writing-for-agents` skill (in this repo) — it owns the method (pointers, disclosure, leading words, pruning) and its `SKILL-MECHANICS.md` owns the model-vs-user invocation choice. This file adds only skill-authoring facts and repo conventions that skill doesn't carry.
 
 # description
 Write what-plus-when in third person: one short clause naming what the skill does, then "Use when …" trigger clauses carrying the concrete phrases, symptoms, and command names that should fire it. Never summarize the skill's step sequence in the description — agents follow the summary instead of reading the body (documented failure: a description saying "code review between tasks" produced one review where the body's flowchart required two; obra/superpowers). Hard cap 1024 characters; aim under 500. Describe the problem, not tool-specific symptoms.

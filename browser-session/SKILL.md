@@ -1,6 +1,6 @@
 ---
 name: browser-session
-description: Drives a site with Playwright under a bot identity held in a storageState file. Use when automating or validating anything in a browser, when a script or check needs a logged-in account, when capturing or reusing a bot login (`--save-storage`, `--load-storage`, `storageState:`), when a site rejects the automated browser, or when personal Chrome or claude-in-chrome is about to act as one of the user's bot accounts.
+description: Runs Playwright as a storageState bot login. Use for browser automation or validation, a check that needs a logged-in account, capturing or reusing a bot login (`--save-storage`, `--load-storage`), a site rejecting the automated browser, or before personal Chrome or claude-in-chrome acts as a bot.
 ---
 
 Playwright is the standard for browser automation and validation, and the scarce part of it is never the script - it is the login. A session is captured once, by hand, in a headed window the user has to sit in front of; after that it is a JSON file that costs nothing to reuse on any machine. So the identity lives in that file and travels to the work, rather than the work travelling to whatever browser happens to be logged in.

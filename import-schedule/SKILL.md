@@ -1,6 +1,6 @@
 ---
 name: import-schedule
-description: Turns a screenshot of a schedule into Google Calendar events after the user confirms the parsed list. Use when a pasted or attached image shows a schedule, itinerary, class or shift timetable, event lineup, or appointment list, and the ask is to add it to the calendar, put these on my calendar, or make events from this.
+description: Turns a schedule screenshot into confirmed Google Calendar events. Use when a pasted or attached image shows a schedule, itinerary, class or shift timetable, event lineup, or appointment list and the ask is to add it to the calendar, put these on my calendar, or make events from this.
 ---
 
 A schedule screenshot is a lossy source: years, time zones, and end times are often missing, and an OCR slip becomes a wrong event on the user's real calendar. So every event is read, listed, and confirmed before anything is written. The confirmation is the gate: no `create_event` call happens until the user approves the exact list.

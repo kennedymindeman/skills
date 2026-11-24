@@ -1,6 +1,6 @@
 ---
 name: education-ui
-description: Design or restyle UI for a learning, study, or reading-heavy tool (flashcards, lessons, courseware, documentation readers) so it looks professional and stays calm, legible, and non-persuasive. Use for new screens, redesign passes, and prototype builds of such tools; for marketing sites use frontend-design instead.
+description: Designs or restyles UI for a learning, study, or reading-heavy tool (flashcards, lessons, courseware, documentation readers) to look professional, calm, legible, and non-persuasive. Use for new screens, redesign passes, and prototype builds of such tools; for marketing sites use frontend-design.
 ---
 
 # Education UI
