@@ -1,6 +1,6 @@
 ---
 name: watch
-description: Arms a background watch for an external condition so the session keeps working while it resolves. Use when waiting on a file to land, a print to finish, CI or PR checks to pass, or any wait longer than a few seconds - and whenever the alternative is a foreground sleep, polling by hand, or asking the user to report back when the thing is done.
+description: Arms a background watch for an external condition so the session keeps working. Use when waiting on a file to land, a print to finish, or CI or PR checks to pass, and whenever the alternative is a foreground sleep or polling by hand.
 ---
 
 A wait is not work. The turn spent holding still on `sleep 240` is a turn the session could have spent on the next task, and it ends with the user interrupting to get the turn back. So an external condition is never waited on in the foreground - it is **armed** as a background watch that fires when the condition holds, and the session moves on to other work in the same turn.

@@ -1,6 +1,6 @@
 ---
 name: fetch-amazon
-description: Reads Amazon product pages and search results that WebFetch and plain curl can't (Amazon answers them with HTTP 500). Use when handed an amazon.com URL or ASIN, when searching Amazon by keyword for candidate products, when recommending or verifying a purchase link, when a price, availability, spec, or rating on Amazon is needed, when comparing what's in the user's cart against alternatives, and when writing a brief that sends a subagent at Amazon.
+description: Reads Amazon product pages and search results that WebFetch and curl can't. Use for an amazon.com URL or ASIN, a keyword search on Amazon, a purchase link, an Amazon price, spec, or rating, or a brief that sends a subagent at Amazon.
 ---
 
 Amazon is reachable; the fetch tools just don't send a browser User-Agent, so they get a 500 that looks like a block. The script here sends one and parses the page. Prefer it over `WebFetch` for every amazon.com lookup, and hand its canonical `https://www.amazon.com/dp/ASIN` link to the user instead of a tracking-laden one.

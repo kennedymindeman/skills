@@ -1,6 +1,6 @@
 ---
 name: mobile-gestures
-description: Gesture and touch-interaction rules for native iOS, Android, and mobile web UI. Use when designing, building, reviewing, or auditing a mobile screen that uses swipe actions, long press, sheets, drag to reorder, pinch or zoom, pull to refresh, carousels, tab swiping, back navigation, touch targets, undo or confirmation of destructive actions, or haptics.
+description: Gesture and touch rules for iOS, Android, and mobile web UI. Use when building or reviewing a mobile screen with swipe actions, long press, sheets, drag to reorder, pinch, pull to refresh, carousels, back navigation, touch targets, or haptics.
 ---
 
 # Mobile gestures
@@ -9,7 +9,7 @@ Rules for how a mobile screen responds to touch. Each rule is tied to a source i
 
 ## Precedence
 
-This skill loads alongside general design skills (ios-hig-design, impeccable, swiftui-expert-skill, swiftui-pro, and similar). Where one of them disagrees with this skill on gestures, touch targets, sheet dismissal, destructive-action confirmation, or haptics, this skill wins. Follow the other skill on everything else.
+This skill loads alongside general design skills (ios-hig-design, impeccable, swiftui-expert-skill, and similar). Where one of them disagrees with this skill on gestures, touch targets, sheet dismissal, destructive-action confirmation, or haptics, this skill wins. Follow the other skill on everything else.
 
 ## Every gesture is a shortcut
 

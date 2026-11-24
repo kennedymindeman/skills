@@ -1,6 +1,6 @@
 ---
 name: blind-redesign
-description: Blind redesign: builders who never see the current screen each design it fresh, then the user picks among them and the current design under shuffled neutral names. Use when asked for redesign options to choose from, a fresh take on a screen, or a blind design comparison.
+description: "Blind redesign: builders who never see the current screen each design it fresh, then the user picks among them and the current design under shuffled neutral names. Use when asked for redesign options to choose from, a fresh take on a screen, or a blind design comparison."
 ---
 
 A redesign built on top of the current UI inherits its layout, and a comparison where the user knows which one is their current screen is not a fair one. So both halves are **blind**: builders design from what the screen is for, never from what it looks like now, and the user picks from shuffled neutral names (Amber, Cobalt, ...) before they learn which name is the current design.
@@ -64,11 +64,10 @@ npx playwright screenshot --viewport-size "1440, 900" --full-page --wait-for-tim
 
 The wait lets screens that fetch data after load finish rendering; open one shot and confirm the fixture content is on screen, and raise the wait if it is not. A screen behind a login loads its bot session with `--load-storage <file>`; the `browser-session` skill owns finding or capturing that file.
 
-**iOS:** the mini has no Xcode, so builds and captures run on the laptop. Fetch each variant branch from its clone into the repo and push it, then over `ssh laptop` check it out, build for one simulator model (the same device name for every source), install, launch against the fixture, and capture:
+**iOS:** build on the mini, which has Xcode and the iOS simulators. From each worktree, build for one simulator model (the same device name for every source), install, launch against the fixture, and capture:
 
 ```
-ssh laptop xcrun simctl io booted screenshot /tmp/<source>.png
-scp laptop:/tmp/<source>.png shots/<source>/<device>.png
+xcrun simctl io booted screenshot shots/<source>/<device>.png
 ```
 
 The capture step is done when every source folder holds the same set of file names.

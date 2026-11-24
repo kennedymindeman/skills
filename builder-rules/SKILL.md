@@ -32,7 +32,7 @@ Implement exactly the brief. Do not widen scope, redesign surrounding code, add 
 
 Write the minimum code the task needs. Keep one-time logic inline instead of in a new helper or class, and build for today's requirement. Validate input and handle errors only at system boundaries such as user input, external APIs, and files; trust internal callers and framework guarantees. Write comments and docstrings only for the why the code cannot show.
 
-When debugging, fix the fault, not the place it surfaced. Reproduce, instrument rather than guess, and ask whether the state that triggered it is legitimate. If the system may validly be in that state, handling it where the code broke is the fix. If the state should never occur, a guard, retry, swallowed error, or clamped value there hides the bug; find what produced the state. Look for the same fault elsewhere: fix it within the brief, and report the rest.
+When debugging, fix the fault, not the place it surfaced. Ask whether the state that triggered it is legitimate. If the system may validly be in that state, handling it where the code broke is the fix. If the state should never occur, a guard, retry, swallowed error, or clamped value there hides the bug; find what produced the state. Look for the same fault elsewhere: fix it within the brief, and report the rest.
 
 When two fixes that share one premise have failed the same check, write the premise down and test it before trying a third.
 
@@ -44,7 +44,7 @@ Test behavior through the interface its users see, not private helpers or intern
 
 Make routine, reversible decisions yourself. Escalate only when different interpretations would produce materially different work.
 
-Write blockers and questions as comments on the ticket from the brief as well as in your report. Never guess about user-visible behavior.
+Also write blockers and questions as comments on the ticket from the brief. Never guess about user-visible behavior.
 
 If the brief is wrong, incomplete, or misaligned, stop and report the mismatch. Do not silently correct it or derive an expanded specification.
 

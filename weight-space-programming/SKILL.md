@@ -1,6 +1,6 @@
 ---
 name: weight-space-programming
-description: Writes or edits neural network weights directly from known rules, with no gradient training. Use when a task needs a small network or policy whose rules you can read (a game, a controller, a classifier with a spec), when a trained model needs a surgical behaviour fix, or when the user mentions weight-space programming.
+description: Writes or edits neural network weights directly from known rules, with no gradient training. Use when a task needs a small network whose rules you can read, when a trained model needs a surgical behaviour fix, or on weight-space programming.
 ---
 
 # Weight-space programming

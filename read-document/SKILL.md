@@ -1,6 +1,6 @@
 ---
 name: read-document
-description: Gets the text out of PDF, docx, pptx, and xlsx files, and judges when a page still needs a visual read. Use when a task hands over a .pdf, .docx, .pptx, or .xlsx path - a paper, deck, contract, statement, spreadsheet - when a document has to be quoted verbatim, or when briefing a subagent that will read one.
+description: Gets the text out of PDF, docx, pptx, and xlsx files and judges when a page needs a visual read. Use when a task hands over one of those files, when a document must be quoted verbatim, or when briefing a subagent that will read one.
 ---
 
 A page read as an image spends a screenful of tokens, comes back paraphrased, and can't be quoted exactly. The same page extracted as text costs a fraction of that and comes back verbatim. So every document is **extracted** first, and a **visual read** is spent only where extraction has nothing to give - a scan with no text layer, or a question the words can't answer.

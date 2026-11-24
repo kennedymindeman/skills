@@ -6,15 +6,15 @@ Some skills assume a personal setup (`~/inbox`, `~/wiki`, a laptop/mini ssh pair
 
 ## Installation
 
-Install the background-agent policies that the `builder` and `researcher` agents in [dotfiles-shared](https://github.com/kennedymindeman/dotfiles-shared) preload, plus `review-evidence`, which its shared rules point to:
+Install the background-agent policies that the agents in [dotfiles-shared](https://github.com/kennedymindeman/dotfiles-shared) preload, plus `review-evidence`, which its shared rules point to:
 
 ```sh
-npx skills add kennedymindeman/skills -g -a claude-code -s researcher-rules builder-rules review-evidence -y
-npx skills add kennedymindeman/skills -g -a github-copilot -s researcher-rules builder-rules review-evidence -y
+npx skills add kennedymindeman/skills -g -a claude-code -s subagent-rules researcher-rules builder-rules review-evidence -y
+npx skills add kennedymindeman/skills -g -a github-copilot -s subagent-rules researcher-rules builder-rules review-evidence -y
 npx skills add kennedymindeman/skills -g -a codex -s review-evidence -y
 ```
 
-Claude Code gets Matt Pocock's skills through the official `mattpocock-skills` plugin. Install the skills needed by Copilot directly from upstream:
+`grilling`, `domain-modeling`, and `wayfinder` are copied from Matt Pocock's skills; see each one's `LICENSE`. Install the other skills Copilot needs directly from upstream:
 
 ```sh
 npx skills add mattpocock/skills -g -a github-copilot -s research -y
@@ -22,6 +22,9 @@ npx skills add mattpocock/skills -g -a github-copilot -s research -y
 
 ## Skills
 
+- **subagent-rules** — the shared rules for subagents that start without
+  CLAUDE.md: uv for Python, multi-line text passed as a file, evidence before a
+  fix, scratch cleanup, denials, and asks in the report.
 - **researcher-rules** — keep background research and review read-only,
   neutral, source-grounded, and explicit about uncertainty.
 - **builder-rules** — implement one fixed brief against its explicit
@@ -60,6 +63,10 @@ npx skills add mattpocock/skills -g -a github-copilot -s research -y
 - **benchmark-checklist** — vet a measured performance or eval number (limiter, tuning, errors, repeatability, relevance) before reporting or acting on it.
 - **sharpen** — user-invoked (`/sharpen`) rewrite of a prompt into a deeper version of the task, not a bigger one.
 - **decision-log** — user-invoked (`/decision-log`, or named in a brief) trail of one TSV row per decision (what, why, evidence, result) for unattended or multi-phase runs, audited against the transcript before handback.
+- **grilling**, **domain-modeling**, **wayfinder** — copies of Matt Pocock's
+  planning skills (mattpocock/skills 1.3.1): interview the user one round of
+  questions at a time, sharpen a project's glossary and ADRs, and chart an
+  effort too big for one session as a map of decision tickets (user-invoked).
 
 ## Retired
 

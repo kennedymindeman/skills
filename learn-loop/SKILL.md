@@ -1,6 +1,6 @@
 ---
 name: learn-loop
-description: Checks what the user already knows before teaching and offers to save learning gaps, SRS cards, and reference notes. Use before a substantive explanation (teaching a concept over several paragraphs), when an explanation shows a gap or a concept new to the user, or when the user asks what a word means while reading.
+description: Checks what the user already knows before teaching and offers to save gaps, SRS cards, and reference notes. Use before a substantive explanation, when a concept is new to the user, or when the user asks what a word means while reading.
 ---
 
 # Learn loop
