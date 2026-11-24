@@ -1,6 +1,6 @@
 ---
 name: best-of-n
-description: Runs several isolated attempts at one hard task and keeps one. Use when asked to fan out, try several approaches, race agents, or take the best of N, or when a task with an objective check has already beaten one attempt. Load it before dispatching.
+description: Runs several isolated attempts at one hard task, keeps one. Use when asked to fan out, try several approaches, race agents, or take the best of N, or when a task with an objective check (a failing test, a reproducible bug, a benchmark) has beaten one attempt or its stakes justify several.
 ---
 
 More attempts raise the odds that one of them is right; picking it is the hard part. So **selection** carries this skill: tests filter, then a blind reviewer picks by running the candidates, never by reading their style. Each attempt follows a different **plan**, because N copies of one brief tend to fail the same way. Routine tickets go through one builder; best-of-n costs about N times the tokens.

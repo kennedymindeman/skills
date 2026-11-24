@@ -1,6 +1,6 @@
 ---
 name: fetch-media
-description: Reads YouTube transcripts and frames and Reddit threads that WebFetch and curl can't. Use for any youtube.com, transcript-site, or reddit.com URL, when a fetch returns 403, 405, or nav chrome, or before calling a source unreachable.
+description: Reads YouTube transcripts and frames and Reddit threads WebFetch and curl can't. Use for any youtube.com, transcript-site (youtubetotranscript, tactiq), or reddit.com URL, when a fetch returns 403, 405, or nav chrome, before calling a source unreachable, or in a subagent brief for YouTube or Reddit.
 ---
 
 These sources are reachable - the fetch tools just aren't how you reach them. `WebFetch` and `curl` hand back nav chrome or a 403/405 for youtube.com, for the third-party transcript sites, and for all of reddit.com, and the failure looks like the source being closed rather than the tool being wrong. `~/wiki/fetching-media.md` is the reference behind this skill: the same recipes with the full pitfall notes.

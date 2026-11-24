@@ -17,4 +17,4 @@ You cannot reach the user. Put every question, decision, and step that needs the
 
 Before returning, remove what you created: scratch directories, temp files, downloads, and caches filled only for the task. List anything left behind and why.
 
-Write the report in plain words, one idea per sentence: the result first, then the output of each check you ran, then background.
+Write the report in plain words, one idea per sentence. When your own rules skill or agent body sets a report format, follow it; otherwise put the result first, then the output of each check you ran, then background.

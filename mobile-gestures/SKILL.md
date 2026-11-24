@@ -1,6 +1,6 @@
 ---
 name: mobile-gestures
-description: Gesture and touch rules for iOS, Android, and mobile web UI. Use when building or reviewing a mobile screen with swipe actions, long press, sheets, drag to reorder, pinch, pull to refresh, carousels, back navigation, touch targets, or haptics.
+description: Gesture and touch rules for iOS, Android, mobile web UI. Use when designing, building, reviewing, or auditing swipe actions, long press, sheets, drag to reorder, pinch, zoom, pull to refresh, carousels, tab swiping, back navigation, touch targets, undo or confirming destructive actions, or haptics.
 ---
 
 # Mobile gestures

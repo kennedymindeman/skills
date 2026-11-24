@@ -1,6 +1,6 @@
 ---
 name: distill-video
-description: Turns a video link into a short thesis, timestamped evidence, and transcript-backed Q&A. Use when asked to explain, summarize, or pull the argument out of a YouTube link, when the user won't watch the whole thing, or for a follow-up about a video.
+description: Turns a video link into a thesis, timestamped evidence, and Q&A. Use when asked to explain, summarize, or pull the argument out of a YouTube link, when the user doesn't want to watch the whole thing or a video restates one claim for an hour, or for a follow-up question about a video.
 ---
 
 A talking-head video is a **restatement machine**: one claim, made at 0:40, re-made in different words at 4:10, 12:55, and 31:20, with the actual support buried in two of those passes. Watching it end to end pays full price for the repetition. The transcript collapses it - the claim stated once, each distinct piece of support linked to the second it lands, and every follow-up answered from the text instead of a rewatch.
