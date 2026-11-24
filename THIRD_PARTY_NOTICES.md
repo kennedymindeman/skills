@@ -1,6 +1,6 @@
 # Third-party notices
 
-`grilling`, `domain-modeling`, and `wayfinder` are copied from Matt Pocock's skills (https://github.com/mattpocock/skills, version 1.3.1) under the MIT license; each directory's `LICENSE` holds the notice.
+`grilling`, `domain-modeling`, `wayfinder`, and `writing-for-agents` are copied from Matt Pocock's skills (https://github.com/mattpocock/skills, version 1.3.1) under the MIT license; each directory's `LICENSE` holds the notice.
 
 These skills are adapted from the pstack plugin by Lauren Tan, under the MIT license:
 

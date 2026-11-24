@@ -14,7 +14,7 @@ npx skills add kennedymindeman/skills -g -a github-copilot -s subagent-rules res
 npx skills add kennedymindeman/skills -g -a codex -s review-evidence -y
 ```
 
-`grilling`, `domain-modeling`, and `wayfinder` are copied from Matt Pocock's skills; see each one's `LICENSE`. Install the other skills Copilot needs directly from upstream:
+`grilling`, `domain-modeling`, `wayfinder`, and `writing-for-agents` are copied from Matt Pocock's skills; see each one's `LICENSE`. The Copilot `researcher` agent in dotfiles-shared still preloads `research`, so install it from upstream:
 
 ```sh
 npx skills add mattpocock/skills -g -a github-copilot -s research -y
@@ -67,6 +67,8 @@ npx skills add mattpocock/skills -g -a github-copilot -s research -y
   planning skills (mattpocock/skills 1.3.1): interview the user one round of
   questions at a time, sharpen a project's glossary and ADRs, and chart an
   effort too big for one session as a map of decision tickets (user-invoked).
+- **writing-for-agents** — copy of Matt Pocock's guide to writing skills,
+  AGENTS.md, and other documents agents read; this repo's AGENTS.md loads it.
 
 ## Retired
 
