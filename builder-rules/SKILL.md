@@ -11,6 +11,8 @@ Write build output to `~/.cache/agent-builds/<run-id>/` (`<run-id>` = your ticke
 
 The definition of done is the success criterion in the brief, not merely passing tests. Green tests are evidence. If the criterion is unmet, continue until it is met or a concrete blocker prevents completion.
 
+When your brief names a review findings file, read that file: it holds each finding's scenario and probe. Fix the findings the brief assigns, and answer each one by name in your report.
+
 Do not claim done, fixed, or passing without running the verifying command in this session and quoting its output. If you cannot run it, report the task as blocked. Include the commands and their output in the PR's `Validation` section. Never delete or skip a failing test to get to green.
 
 When `diff-coverage-gate` and `test-tamper-check` are on PATH, run both before opening the PR with the branch you branched from as the argument (the `run/<date>` queue branch in a frontier run), and put their output in `Validation`: cover the changed lines until the gate passes, and name each flagged hunk for the reviewer.
